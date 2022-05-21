@@ -14,9 +14,13 @@ class Tile {
     }
 
     transform_isometric() {
+        var a = ( 0.50 * this.image.width);
+        var b = (-0.50 * this.image.width);
+        var c = ( 0.25 * this.image.height);
+        var d = ( 0.25 * this.image.height);
         var position = {
-            x: ((this.position.x * (0.50 * this.image.width))   + (this.position.y * (-0.50 * this.image.width)) - this.image.width * 0.5),
-            y: ( this.position.x * (0.25 * this.image.height))  + (this.position.y * ( 0.25 * this.image.height))
+            x: ((this.position.x * a) + (this.position.y * b) - this.image.width * 0.5),
+            y: ( this.position.x * c) + (this.position.y * d)
         };
         position.x += canvas_width * 0.5;
         position.y += canvas_height / (grid_size * 0.25);

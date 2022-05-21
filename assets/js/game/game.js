@@ -10,14 +10,6 @@ var IntervalID;
 
 var grid = [];
 
-function get_cursor_position(canvas, event) {
-    const rect = canvas.getBoundingClientRect();
-    const x = Math.floor((event.clientX - rect.left).map(0, canvas_width, 0, grid_size));
-    const y = Math.floor((event.clientY - rect.top).map(0, canvas_width, 0, grid_size));
-
-    return { x: x, y: y };
-}
-
 start_game();
 
 var player = new Player(
@@ -50,6 +42,17 @@ document.addEventListener('keydown', function (event) {
         player.move(input);
     }, 1000/60);
 });
+
+canvas.onmousemove = function (e) {
+    // important: correct mouse position:
+    var rect = this.getBoundingClientRect(),
+        x = Math.floor((e.clientX - rect.left) / grid_size),
+        y = Math.floor((e.clientY - rect.top) / grid_size);
+
+    var position = Utilities.transform_screen_isometric({x: x, y: y});
+    console.log(position)
+    //var tile = grid[position.x][position.y];
+};
 
 // GAME LOOP
 function start_interval(time) {
