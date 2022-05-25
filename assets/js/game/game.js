@@ -2,7 +2,7 @@ const canvas = document.getElementById('canvas');
 const context = canvas.getContext("2d");
 var canvas_width = context.canvas.clientWidth;
 var canvas_height = context.canvas.clientHeight;
-var grid_size = 16;
+var grid_size = 32;
 var grid_height = 4;
 var image_size = 32;
 
@@ -66,9 +66,23 @@ canvas.onmousemove = function (e) {
     var rect = this.getBoundingClientRect(),
         x = Math.floor((e.clientX - rect.left) / grid_size),
         y = Math.floor((e.clientY - rect.top) / grid_size);
+    
+    var isometric_position = Utilities.transform_screen_isometric({x: x, y: y});
+    //console.log(isometric_position)
+    /*for (var x = 0; x < grid.length; x++) {
+        for (var y = 0; y < grid[x].length; y++) {
+            for (var z = 0; z < grid[x][y].length; z++) {
+                var tile = grid[x][y][z];
+                if (
+                    isometric_position.x === tile.isometric_position.x &&
+                    isometric_position.y === tile.isometric_position.y 
+                ) {
+                    console.log(tile)
+                }
+            }
+        }
+    }*/
 
-    var position = Utilities.transform_screen_isometric({x: x, y: y});
-    //var tile = grid[position.x][position.y];
 };
 
 // GAME LOOP
@@ -183,3 +197,12 @@ function start_game() {
         start_interval(Interval);
     }
 }
+
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    canvas_width = canvas.clientWidth;
+    canvas_height = canvas.clientHeight;
+}
+resize();
+window.addEventListener("resize", resize);
