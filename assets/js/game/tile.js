@@ -3,10 +3,18 @@ class Tile {
         this.position = new Vector(x, y);
         this.image = new Image();
         this.image.src = image_src;
+        this.image.height = image_size;
+        this.image.width = image_size;
     }
 
     update() {
+        this.set_image_size();
         this.draw();
+    }
+
+    set_image_size() {
+        this.image.height = image_size;
+        this.image.width = image_size;
     }
 
     set_image(image_src) {
@@ -14,42 +22,37 @@ class Tile {
     }
 
     transform_isometric() {
-        var a = ( 0.50 * this.image.width);
-        var b = (-0.50 * this.image.width);
-        var c = ( 0.25 * this.image.height);
-        var d = ( 0.25 * this.image.height);
+        var a = ( 0.50 * image_size);
+        var b = (-0.50 * image_size);
+        var c = ( 0.25 * image_size);
+        var d = ( 0.25 * image_size);
+
         var position = {
-            x: ((this.position.x * a) + (this.position.y * b) - this.image.width * 0.5),
+            x: ((this.position.x * a) + (this.position.y * b) - image_size * 0.5),
             y: ( this.position.x * c) + (this.position.y * d)
         };
+
         position.x += canvas_width * 0.5;
-        position.y += canvas_height / (grid_size * 0.25);
+        position.y += canvas_height * 0.5 - grid_size * 8;
 
         return position;
     }
 
     draw() {
-        var position = this.transform_isometric();
+        var isometric_position = this.transform_isometric();
         
         context.drawImage(
             this.image,
-            position.x,
-            position.y
+            isometric_position.x,
+            isometric_position.y,
+            this.image.width,
+            this.image.height
         );
     }
 
     moveTo(x, y) {
         this.position.x = x;
         this.position.y = y;
-    }
-
-    move(input) {
-        this.position.x = this.lerp(this.position.x, this.position.x + input.x, 0.1);
-        this.position.y = this.lerp(this.position.y, this.position.y + input.y, 0.1);
-    }
-
-    lerp(start, end, ammount) {
-        return (1 - ammount) * start + ammount * end;
     }
 
     move_y(n) {
