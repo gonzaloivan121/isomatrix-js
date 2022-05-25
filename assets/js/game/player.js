@@ -1,5 +1,7 @@
-class Player extends Tile {
-    constructor(x, y, image_src) {
-        super(x, y, image_src);
+class Player extends Entity {
+    movement_speed = 1;
+
+    constructor(x, y) {
+        super(x, y, "./assets/img/player.png");
     }
 }
