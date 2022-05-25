@@ -1,4 +1,6 @@
 class Tile {
+    isometric_position = new Vector();
+
     constructor(x, y, image_src = "./assets/img/tile.png") {
         this.position = new Vector(x, y);
         this.image = new Image();
@@ -39,12 +41,13 @@ class Tile {
     }
 
     draw() {
-        var isometric_position = this.transform_isometric();
+        this.isometric_position = this.transform_isometric();
+        //this.isometric_position = this.position;
         
         context.drawImage(
             this.image,
-            isometric_position.x,
-            isometric_position.y,
+            this.isometric_position.x,
+            this.isometric_position.y,
             this.image.width,
             this.image.height
         );
