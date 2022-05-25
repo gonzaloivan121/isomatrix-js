@@ -7,14 +7,27 @@ class Input {
     static run = "SHIFT";
 
     static any(key) {
-        for (const property in this) {
-            if (Object.hasOwnProperty.call(this, property)) {
-                if (this[property] === key) {
-                    return true;
-                }
+        for (const bind in this) {
+            if (this[bind] === key) {
+                return true;
             }
         }
 
         return false;
+    }
+
+    static bind(bind, key) {
+        if (this.hasOwnProperty(bind)) {
+            console.log(bind, key)
+            this[bind] = key;
+        }
+    }
+
+    static get_binds() {
+        var obj = [];
+        for (const bind in this) {
+            obj[bind] = this[bind];
+        }
+        return obj;
     }
 }
