@@ -18,16 +18,23 @@ class Input {
 
     static bind(bind, key) {
         if (this.hasOwnProperty(bind)) {
-            console.log(bind, key)
             this[bind] = key;
         }
     }
 
-    static get_binds() {
+    static get_bind_keys() {
         var obj = [];
         for (const bind in this) {
             obj[bind] = this[bind];
         }
         return obj;
+    }
+
+    static get_binds() {
+        var binds = [];
+        for (const bind in this) {
+            binds.push(bind);
+        }
+        return binds;
     }
 }
