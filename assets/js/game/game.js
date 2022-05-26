@@ -2,7 +2,7 @@ const canvas = document.getElementById('canvas');
 const context = canvas.getContext("2d");
 var canvas_width = canvas.clientWidth;
 var canvas_height = canvas.clientHeight;
-var grid_size = 8;
+var grid_size = 32;
 var grid_height = 4;
 var image_size = 32;
 
@@ -76,8 +76,8 @@ canvas.onmousemove = function (e) {
             for (var z = 0; z < grid[x][y].length; z++) {
                 var tile = grid[x][y][z];
                 if (
-                    screen_x >= tile.isometric_position.x && screen_x < tile.isometric_position.x + image_size * 0.5 &&
-                    screen_y >= tile.isometric_position.y && screen_y < tile.isometric_position.y + image_size * 0.5
+                    screen_x >= tile.isometric_position.x && screen_x <= tile.isometric_position.x + image_size * 0.5 &&
+                    screen_y >= tile.isometric_position.y && screen_y <= tile.isometric_position.y + image_size * 0.5
                 ) {
                     tile.set_selected(true);
                 } else {
@@ -181,17 +181,17 @@ function start_game() {
                     var r = Utilities.random(0,1);
 
                     if (r === 0) {
-                        grid[x][y][z] = new Dirt(x + z * 2, y + z * 2);
+                        grid[x][y][z] = new Dirt(x + z, y + z);
                     } else {
-                        grid[x][y][z] = new Stone(x + z * 2, y + z * 2);
+                        grid[x][y][z] = new Stone(x + z, y + z);
                     }
 
                 } else if (z > 2 && z < grid_height - 1) {
                     // The rest is stone
-                    grid[x][y][z] = new Stone(x + z * 2, y + z * 2);
+                    grid[x][y][z] = new Stone(x + z, y + z);
                 } else {
                     // The rest is stone
-                    grid[x][y][z] = new Bedrock(x + z * 2, y + z * 2);
+                    grid[x][y][z] = new Bedrock(x + z, y + z);
                 }
             }
         }
