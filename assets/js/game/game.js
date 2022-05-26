@@ -1,8 +1,8 @@
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext("2d");
-var canvas_width = context.canvas.clientWidth;
-var canvas_height = context.canvas.clientHeight;
-var grid_size = 32;
+var canvas_width = canvas.clientWidth;
+var canvas_height = canvas.clientHeight;
+var grid_size = 8;
 var grid_height = 4;
 var image_size = 32;
 
@@ -45,6 +45,10 @@ document.addEventListener('keydown', function (event) {
             break;
         case Input.run:
             player.movement_speed = 2;
+            break;
+        case Input.dance:
+            dance_tiles();
+            break;
     }
 });
 
@@ -64,25 +68,24 @@ document.addEventListener('keyup', function (event) {
 canvas.onmousemove = function (e) {
     // important: correct mouse position:
     var rect = this.getBoundingClientRect(),
-        x = Math.floor((e.clientX - rect.left) / grid_size),
-        y = Math.floor((e.clientY - rect.top) / grid_size);
-    
-    var isometric_position = Utilities.transform_screen_isometric({x: x, y: y});
-    //console.log(isometric_position)
-    /*for (var x = 0; x < grid.length; x++) {
+        screen_x = Math.floor(e.clientX - rect.left),
+        screen_y = Math.floor(e.clientY - rect.top);
+
+    for (var x = 0; x < grid.length; x++) {
         for (var y = 0; y < grid[x].length; y++) {
             for (var z = 0; z < grid[x][y].length; z++) {
                 var tile = grid[x][y][z];
                 if (
-                    isometric_position.x === tile.isometric_position.x &&
-                    isometric_position.y === tile.isometric_position.y 
+                    screen_x >= tile.isometric_position.x && screen_x < tile.isometric_position.x + image_size * 0.5 &&
+                    screen_y >= tile.isometric_position.y && screen_y < tile.isometric_position.y + image_size * 0.5
                 ) {
-                    console.log(tile)
+                    tile.set_selected(true);
+                } else {
+                    tile.set_selected(false);
                 }
             }
         }
-    }*/
-
+    }
 };
 
 // GAME LOOP

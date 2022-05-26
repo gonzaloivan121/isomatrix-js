@@ -5,6 +5,7 @@ class Input {
     static right = "D";
     static jump = " ";
     static run = "SHIFT";
+    static dance = "M";
 
     static any(key) {
         for (const bind in this) {
