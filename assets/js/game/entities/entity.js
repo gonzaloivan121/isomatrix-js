@@ -8,12 +8,19 @@ class Entity extends Tile {
 
     fight(entity) {
         var damage = Utilities.calculate_damage(this.stats, entity.stats);
+
+        if (damage === false) {
+            return false;
+        }
+
         entity.stats.decrease_health(damage);
 
         if (entity.stats.health === 0) {
             this.stats.gain_experience(entity.experience_to_give);
             entity.die();
         }
+
+        return true;
     }
 
     die() {

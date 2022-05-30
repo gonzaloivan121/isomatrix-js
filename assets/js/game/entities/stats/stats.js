@@ -7,6 +7,7 @@ class Stats {
     critical_chance = 20;
     critical_multiplier = 2;
     defence = 1;
+    block_chance = 5;
     movement_area = 1;
 
     constructor(level = 1, attack = 1, defence = 1, movement_area = 1) {
