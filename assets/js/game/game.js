@@ -203,10 +203,10 @@ function start_game() {
                     }
 
                 } else if (z > 2 && z < grid_height - 1) {
-                    // The rest is stone
+                    // The rest is stone until last
                     grid[x][y][z] = new Stone(x + z, y + z);
                 } else {
-                    // The rest is stone
+                    // The last stack is bedrock
                     grid[x][y][z] = new Bedrock(x + z, y + z);
                 }
             }
