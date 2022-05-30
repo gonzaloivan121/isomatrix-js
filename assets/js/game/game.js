@@ -2,7 +2,7 @@ const canvas = document.getElementById('canvas');
 const context = canvas.getContext("2d");
 var canvas_width = canvas.clientWidth;
 var canvas_height = canvas.clientHeight;
-var grid_size = 8;
+var grid_size = 16;
 var grid_height = 4;
 var image_size = 32;
 
@@ -16,7 +16,12 @@ var input = new Vector();
 
 start_game();
 
-var player = new Player(0.5,0.5);
+var player = new Player(0.5, 0.5);
+
+var enemy = new Enemy(
+    Utilities.random(-1, grid_size - 2) - 0.5,
+    Utilities.random(-1, grid_size - 2) - 0.5
+    );
 
 document.addEventListener('keydown', function (event) {
     //if (event.repeat) return;
@@ -81,8 +86,12 @@ canvas.onmousedown = function (e) {
                     z === 0
                 ) {
                     tile.set_selected(true);
-                    player.move_to(x - 1.5, y - 1.5);
-                    console.log(tile)
+
+                    if (enemy.position.x === x - 1.5 && enemy.position.y === y - 1.5) {
+                        player.fight(enemy);
+                    } else {
+                        player.move_to(x - 1.5, y - 1.5);
+                    }
                 }
             }
         }
@@ -94,6 +103,7 @@ function start_interval(time) {
     IntervalID = setInterval(() => {
         draw_background();
         update_tiles();
+        update_enemy();
         update_player();
     }, time);
 }
@@ -144,6 +154,12 @@ function update_tiles() {
 function update_player() {
     if (player !== undefined) {
         player.update();
+    }
+}
+
+function update_enemy() {
+    if (enemy !== undefined) {
+        enemy.update();
     }
 }
 

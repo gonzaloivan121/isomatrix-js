@@ -1,6 +1,17 @@
 class Entity extends Tile {
+    stats = new Stats();
+
     constructor(x, y, image_src) {
         super(x, y, image_src);
+    }
+
+    fight(entity) {
+        console.log(this.stats, entity.stats)
+    }
+
+    move_to(x, y) {
+        this.position.x = x;
+        this.position.y = y;
     }
 
     move(position) {

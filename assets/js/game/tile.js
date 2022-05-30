@@ -35,11 +35,6 @@ class Tile {
         );
     }
 
-    move_to(x, y) {
-        this.position.x = x;
-        this.position.y = y;
-    }
-
     move_y(n) {
         var old_x = this.position.x;
         var old_y = this.position.y;
