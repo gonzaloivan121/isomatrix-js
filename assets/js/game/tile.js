@@ -1,6 +1,5 @@
 class Tile {
     isometric_position = new Vector();
-    selected = false;
 
     constructor(x, y, image_src = "./assets/img/tile.png") {
         this.position = new Vector(x, y);
@@ -8,23 +7,12 @@ class Tile {
         this.image.src = image_src;
         this.image.height = image_size;
         this.image.width = image_size;
-        //this.original_position = new Vector(x, y);
-        //this.selected_position = new Vector(x - 0.25, y - 0.25);
     }
 
     update() {
         this.set_image_size();
-        //this.check_selected();
         this.draw();
     }
-
-    /*check_selected() {
-        if (this.selected) {
-            this.select();
-        } else {
-            this.unselect();
-        }
-    }*/
 
     set_image_size() {
         this.image.height = image_size;
@@ -33,10 +21,6 @@ class Tile {
 
     set_image(image_src) {
         this.image.src = image_src;
-    }
-
-    set_selected(selected) {
-        this.selected = selected;
     }
 
     draw() {
@@ -54,16 +38,6 @@ class Tile {
     moveTo(x, y) {
         this.position.x = x;
         this.position.y = y;
-    }
-
-    select() {
-        this.position.x = this.selected_position.x;
-        this.position.y = this.selected_position.y;
-    }
-
-    unselect() {
-        this.position.x = this.original_position.x;
-        this.position.y = this.original_position.y;
     }
 
     move_y(n) {

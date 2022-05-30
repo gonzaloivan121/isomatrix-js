@@ -2,7 +2,7 @@ const canvas = document.getElementById('canvas');
 const context = canvas.getContext("2d");
 var canvas_width = canvas.clientWidth;
 var canvas_height = canvas.clientHeight;
-var grid_size = 32;
+var grid_size = 8;
 var grid_height = 4;
 var image_size = 32;
 
@@ -19,7 +19,7 @@ start_game();
 var player = new Player(0.5,0.5);
 
 document.addEventListener('keydown', function (event) {
-    if (event.repeat) return;
+    //if (event.repeat) return;
 
     const key = event.key.toUpperCase();
 
@@ -43,7 +43,7 @@ function move_player(key) {
     }
 }
 
-/*canvas.onmousemove = function (e) {
+canvas.onmousemove = function (e) {
     var rect = this.getBoundingClientRect(),
         screen_x = Math.floor(e.clientX - rect.left),
         screen_y = Math.floor(e.clientY - rect.top);
@@ -54,19 +54,19 @@ function move_player(key) {
                 var tile = grid[x][y][z];
                 if (
                     screen_x >= tile.isometric_position.x && screen_x <= tile.isometric_position.x + image_size * 0.5 &&
-                    screen_y >= tile.isometric_position.y && screen_y <= tile.isometric_position.y + image_size * 0.5
+                    screen_y >= tile.isometric_position.y && screen_y <= tile.isometric_position.y + image_size * 0.5 &&
+                    z === 0
                 ) {
-                    tile.set_selected(true);
+                    tile.hover(true);
                 } else {
-                    tile.set_selected(false);
+                    tile.hover(false);
                 }
             }
         }
     }
-};*/
+};
 
-/*canvas.onmousedown = function (e) {
-    if (e.repeat) return;
+canvas.onmousedown = function (e) {
     var rect = this.getBoundingClientRect(),
         screen_x = Math.floor(e.clientX - rect.left),
         screen_y = Math.floor(e.clientY - rect.top);
@@ -77,14 +77,16 @@ function move_player(key) {
                 var tile = grid[x][y][z];
                 if (
                     screen_x >= tile.isometric_position.x && screen_x <= tile.isometric_position.x + image_size * 0.5 &&
-                    screen_y >= tile.isometric_position.y && screen_y <= tile.isometric_position.y + image_size * 0.5
+                    screen_y >= tile.isometric_position.y && screen_y <= tile.isometric_position.y + image_size * 0.5 &&
+                    z === 0
                 ) {
+                    tile.set_selected(true);
                     console.log(tile)
                 }
             }
         }
     }
-}*/
+}
 
 // GAME LOOP
 function start_interval(time) {
