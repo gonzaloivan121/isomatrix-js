@@ -1,20 +1,31 @@
 class Stats {
     health = 100;
+    max_health = 100;
     level = 1;
     experience = 0;
     experience_to_level_up = 5;
     attack = 1;
-    critical_chance = 20;
+    critical_chance = 5;
     critical_multiplier = 2;
     defence = 1;
     block_chance = 5;
     movement_area = 1;
 
-    constructor(level = 1, attack = 1, defence = 1, movement_area = 1) {
-        this.level = level;
+    constructor(attack = 1, defence = 1, critical_chance = 5, critical_multiplier = 2, block_chance = 5, movement_area = 1) {
         this.attack = attack;
         this.defence = defence;
+        this.critical_chance = critical_chance;
+        this.critical_multiplier = critical_multiplier;
+        this.block_chance = block_chance;
         this.movement_area = movement_area;
+    }
+
+    increase_health(health) {
+        if (this.health + health >= 100) {
+            this.health = 100;
+        } else {
+            this.health += health;
+        }
     }
 
     decrease_health(health) {
@@ -25,12 +36,12 @@ class Stats {
         }
     }
 
-    increase_health(health) {
-        if (this.health + health >= 100) {
-            this.health = 100;
-        } else {
-            this.health += health;
-        }
+    increase_max_health(max_health) {
+        this.max_health += max_health;
+    }
+
+    decrease_max_health(max_health) {
+        this.max_health -= max_health;
     }
 
     level_up() {
