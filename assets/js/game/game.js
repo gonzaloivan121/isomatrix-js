@@ -87,8 +87,12 @@ canvas.onmousedown = function (e) {
                 ) {
                     tile.set_selected(true);
 
-                    if (enemy.position.x === x - 1.5 && enemy.position.y === y - 1.5) {
-                        player.fight(enemy);
+                    if (enemy.position.x === x - 1.5 && enemy.position.y === y - 1.5 && enemy.alive) {
+                        if (player.fight(enemy)) {
+                            console.log(enemy.stats.health)
+                        } else {
+                            alert("Attack blocked!");
+                        }
                     } else {
                         player.move_to(x - 1.5, y - 1.5);
                     }
