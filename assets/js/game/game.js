@@ -81,6 +81,7 @@ canvas.onmousedown = function (e) {
                     z === 0
                 ) {
                     tile.set_selected(true);
+                    player.move_to(x - 1.5, y - 1.5);
                     console.log(tile)
                 }
             }
