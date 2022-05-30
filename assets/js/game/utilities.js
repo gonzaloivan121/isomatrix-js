@@ -23,4 +23,13 @@ class Utilities {
    static map(n, min1, max1, min2, max2) {
        return min2 + (max2 - min2) * ((n - min1) / (max1 - min1));
     }
+
+    static calculate_damage(a, b) {
+        var damage = a.attack;
+        if (this.random(0, 100) >= a.critical_chance) {
+            damage *= a.critical_multiplier;
+        }
+        damage -= b.defence;
+        return damage;
+    }
 }

@@ -1,12 +1,23 @@
 class Entity extends Tile {
     stats = new Stats();
+    alive = true;
 
     constructor(x, y, image_src) {
         super(x, y, image_src);
     }
 
     fight(entity) {
-        console.log(this.stats, entity.stats)
+        var damage = Utilities.calculate_damage(this.stats, entity.stats);
+        entity.stats.decrease_health(damage);
+
+        if (entity.stats.health === 0) {
+            this.stats.gain_experience(entity.experience_to_give);
+            entity.die();
+        }
+    }
+
+    die() {
+        this.alive = false;
     }
 
     move_to(x, y) {

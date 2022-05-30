@@ -4,6 +4,8 @@ class Stats {
     experience = 0;
     experience_to_level_up = 5;
     attack = 1;
+    critical_chance = 20;
+    critical_multiplier = 2;
     defence = 1;
     movement_area = 1;
 
@@ -12,6 +14,22 @@ class Stats {
         this.attack = attack;
         this.defence = defence;
         this.movement_area = movement_area;
+    }
+
+    decrease_health(health) {
+        if (this.health - health <= 0) {
+            this.health = 0;
+        } else {
+            this.health -= health;
+        }
+    }
+
+    increase_health(health) {
+        if (this.health + health >= 100) {
+            this.health = 100;
+        } else {
+            this.health += health;
+        }
     }
 
     level_up() {
@@ -38,6 +56,22 @@ class Stats {
 
     decrease_attack(attack) {
         this.attack -= attack;
+    }
+
+    increase_critical_chance(critical_chance) {
+        this.critical_chance += critical_chance;
+    }
+
+    decrease_critical_chance(critical_chance) {
+        this.critical_chance -= critical_chance;
+    }
+
+    increase_critical_multiplier(critical_multiplier) {
+        this.critical_multiplier += critical_multiplier;
+    }
+
+    decrease_critical_multiplier(critical_multiplier) {
+        this.critical_multiplier -= critical_multiplier;
     }
 
     increase_defence(defence) {

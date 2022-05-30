@@ -103,7 +103,9 @@ function start_interval(time) {
     IntervalID = setInterval(() => {
         draw_background();
         update_tiles();
-        update_enemy();
+        if (enemy.alive) {
+            update_enemy();
+        }
         update_player();
     }, time);
 }
