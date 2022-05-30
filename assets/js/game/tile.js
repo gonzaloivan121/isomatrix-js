@@ -8,8 +8,8 @@ class Tile {
         this.image.src = image_src;
         this.image.height = image_size;
         this.image.width = image_size;
-        this.original_position = new Vector(x, y);
-        this.selected_position = new Vector(x - 0.25, y - 0.25);
+        //this.original_position = new Vector(x, y);
+        //this.selected_position = new Vector(x - 0.25, y - 0.25);
     }
 
     update() {
@@ -18,13 +18,13 @@ class Tile {
         this.draw();
     }
 
-    check_selected() {
+    /*check_selected() {
         if (this.selected) {
             this.select();
         } else {
             this.unselect();
         }
-    }
+    }*/
 
     set_image_size() {
         this.image.height = image_size;
@@ -41,7 +41,7 @@ class Tile {
 
     draw() {
         this.isometric_position = Utilities.transform_isometric(this.position);
-        
+
         context.drawImage(
             this.image,
             this.isometric_position.x,
