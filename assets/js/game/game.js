@@ -16,57 +16,34 @@ var input = new Vector();
 
 start_game();
 
-var player = new Player(
-    Math.floor(grid_size * 0.5) - 4,
-    Math.floor(grid_size * 0.5) - 4
-);
+var player = new Player(0.5,0.5);
 
 document.addEventListener('keydown', function (event) {
     if (event.repeat) return;
 
     const key = event.key.toUpperCase();
 
+    move_player(key);
+});
+
+function move_player(key) {
     switch (key) {
         case Input.up:
-            input.x += -player.movement_speed;
-            input.y += -player.movement_speed;
+            player.move(Vector.up);
             break;
         case Input.down:
-            input.x += player.movement_speed;
-            input.y += player.movement_speed;
+            player.move(Vector.down);
             break;
         case Input.left:
-            input.x += -player.movement_speed;
-            input.y +=  player.movement_speed;
+            player.move(Vector.left);
             break;
         case Input.right:
-            input.x +=  player.movement_speed;
-            input.y += -player.movement_speed;
-            break;
-        case Input.run:
-            player.movement_speed = 2;
-            break;
-        case Input.dance:
-            dance_tiles();
+            player.move(Vector.right);
             break;
     }
-});
+}
 
-document.addEventListener('keyup', function (event) {
-    if (event.repeat) return;
-
-    const key = event.key.toUpperCase();
-    if (Input.any(key)) {
-        input = new Vector();
-    }
-
-    if (key === Input.run) {
-        player.movement_speed = 1;
-    }
-});
-
-canvas.onmousemove = function (e) {
-    // important: correct mouse position:
+/*canvas.onmousemove = function (e) {
     var rect = this.getBoundingClientRect(),
         screen_x = Math.floor(e.clientX - rect.left),
         screen_y = Math.floor(e.clientY - rect.top);
@@ -86,7 +63,28 @@ canvas.onmousemove = function (e) {
             }
         }
     }
-};
+};*/
+
+/*canvas.onmousedown = function (e) {
+    if (e.repeat) return;
+    var rect = this.getBoundingClientRect(),
+        screen_x = Math.floor(e.clientX - rect.left),
+        screen_y = Math.floor(e.clientY - rect.top);
+
+    for (var x = 0; x < grid.length; x++) {
+        for (var y = 0; y < grid[x].length; y++) {
+            for (var z = 0; z < grid[x][y].length; z++) {
+                var tile = grid[x][y][z];
+                if (
+                    screen_x >= tile.isometric_position.x && screen_x <= tile.isometric_position.x + image_size * 0.5 &&
+                    screen_y >= tile.isometric_position.y && screen_y <= tile.isometric_position.y + image_size * 0.5
+                ) {
+                    console.log(tile)
+                }
+            }
+        }
+    }
+}*/
 
 // GAME LOOP
 function start_interval(time) {
@@ -143,7 +141,6 @@ function update_tiles() {
 function update_player() {
     if (player !== undefined) {
         player.update();
-        player.move(input);
     }
 }
 
