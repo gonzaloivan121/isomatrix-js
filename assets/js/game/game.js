@@ -21,7 +21,7 @@ var player = new Player(0.5, 0.5);
 var enemy = new Enemy(
     Utilities.random(-1, grid_size - 2) - 0.5,
     Utilities.random(-1, grid_size - 2) - 0.5
-    );
+);
 
 document.addEventListener('keydown', function (event) {
     //if (event.repeat) return;
@@ -31,7 +31,7 @@ document.addEventListener('keydown', function (event) {
     move_player(key);
 });
 
-function move_player(key) {
+function move_player(key = null) {
     switch (key) {
         case Input.up:
             player.move(Vector.up);
