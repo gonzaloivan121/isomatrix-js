@@ -201,8 +201,8 @@ function start_game() {
 }
 
 function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = window.visualViewport.width;
+    canvas.height = window.visualViewport.height;
     canvas_width = canvas.clientWidth;
     canvas_height = canvas.clientHeight;
 }
