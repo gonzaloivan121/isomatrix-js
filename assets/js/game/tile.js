@@ -35,7 +35,7 @@ class Tile {
         );
     }
 
-    moveTo(x, y) {
+    move_to(x, y) {
         this.position.x = x;
         this.position.y = y;
     }
