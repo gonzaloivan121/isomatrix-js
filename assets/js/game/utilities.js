@@ -25,11 +25,24 @@ class Utilities {
     }
 
     static calculate_damage(a, b) {
+        // Draw random number for block chance
+        if (this.random(0, 100) <= b.block_chance) {
+            return false;
+        }
+
+        // If attack is lower than defence, block the attack
+        if (a.attack < b.defence) {
+            return false;
+        }
+
         var damage = a.attack;
-        if (this.random(0, 100) >= a.critical_chance) {
+        // Draw random number for critical chance
+        if (this.random(0, 100) <= a.critical_chance) {
             damage *= a.critical_multiplier;
         }
+
         damage -= b.defence;
+
         return damage;
     }
 }
