@@ -1,7 +1,7 @@
 class Vector {
     static zero = new Vector(0, 0);
-    static up = new Vector(0, 1);
-    static down = new Vector(0, -1);
+    static up = new Vector(0, -1);
+    static down = new Vector(0, 1);
     static left = new Vector(-1, 0);
     static right = new Vector(1, 0);
 
