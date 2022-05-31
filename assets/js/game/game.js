@@ -43,7 +43,7 @@ function generate_enemies() {
         );
     }
 
-    enemy = enemies[Utilities.random(0, enemies.length)];
+    enemy = enemies[Utilities.random(0, enemies.length - 1)];
 }
 
 generate_enemies();
