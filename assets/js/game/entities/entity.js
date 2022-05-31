@@ -31,10 +31,14 @@ class Entity extends Tile {
         this.alive = false;
     }
 
-    revive() {
+    revive(random_position = false) {
         if (!this.alive && this.stats.health === 0) {
             this.alive = true;
             this.stats.increase_health(this.stats.max_health);
+            if (random_position) {
+                this.position.x = Utilities.random(-1, grid_size - 2) - 0.5;
+                this.position.y = Utilities.random(-1, grid_size - 2) - 0.5;
+            }
             return true;
         }
         return false;

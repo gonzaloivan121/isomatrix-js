@@ -190,15 +190,15 @@ function reset_health_bar(type = null) {
     bar.style.width = "100%";
 }
 
-function revive(type = null) {
+function revive(type = null, random_position = false) {
     if (type === null) return;
     var revived = false;
     switch (type) {
         case "player":
-            revived = player.revive();
+            revived = player.revive(random_position);
             break;
         case "enemy":
-            revived = enemy.revive();
+            revived = enemy.revive(random_position);
             break;
         default:
             return;
