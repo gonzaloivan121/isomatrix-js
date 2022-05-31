@@ -137,6 +137,7 @@ function check_action_area(x, y) {
         for (var i = 0; i < enemies.length; i++) {
             if (enemies[i].position.x === x - 1.5 && enemies[i].position.y === y - 1.5) {
                 enemy = enemies[i];
+                update_health_bar("enemy", 0);
             }
         }
     }
