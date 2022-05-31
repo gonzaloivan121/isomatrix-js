@@ -18,7 +18,9 @@ class Entity extends Tile {
         enemy.stats.decrease_health(damage);
 
         if (enemy.stats.health === 0) {
-            this.stats.gain_experience(enemy.experience_to_give);
+            if (enemy.experience_to_give !== undefined) {
+                this.stats.gain_experience(enemy.experience_to_give);
+            }
             enemy.die();
         }
 
@@ -27,6 +29,15 @@ class Entity extends Tile {
 
     die() {
         this.alive = false;
+    }
+
+    revive() {
+        if (!this.alive && this.stats.health === 0) {
+            this.alive = true;
+            this.stats.increase_health(this.stats.max_health);
+            return true;
+        }
+        return false;
     }
 
     calculate_damage(enemy) {
