@@ -23,26 +23,4 @@ class Utilities {
    static map(n, min1, max1, min2, max2) {
        return min2 + (max2 - min2) * ((n - min1) / (max1 - min1));
     }
-
-    static calculate_damage(a, b) {
-        // Draw random number for block chance
-        if (this.random(0, 100) <= b.block_chance) {
-            return false;
-        }
-
-        // If attack is lower than defence, block the attack
-        if (a.attack < b.defence) {
-            return false;
-        }
-
-        var damage = a.attack;
-        // Draw random number for critical chance
-        if (this.random(0, 100) <= a.critical_chance) {
-            damage *= a.critical_multiplier;
-        }
-
-        damage -= b.defence;
-
-        return damage;
-    }
 }

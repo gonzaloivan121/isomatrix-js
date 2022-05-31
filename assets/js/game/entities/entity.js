@@ -6,18 +6,18 @@ class Entity extends Tile {
         super(x, y, image_src);
     }
 
-    fight(entity) {
-        var damage = Utilities.calculate_damage(this.stats, entity.stats);
+    fight(enemy) {
+        var damage = this.calculate_damage(enemy);
 
         if (damage === false) {
             return false;
         }
 
-        entity.stats.decrease_health(damage);
+        enemy.stats.decrease_health(damage);
 
-        if (entity.stats.health === 0) {
-            this.stats.gain_experience(entity.experience_to_give);
-            entity.die();
+        if (enemy.stats.health === 0) {
+            this.stats.gain_experience(enemy.experience_to_give);
+            enemy.die();
         }
 
         return true;
@@ -25,6 +25,29 @@ class Entity extends Tile {
 
     die() {
         this.alive = false;
+    }
+
+    calculate_damage(enemy) {
+        // Draw random number for block chance
+        if (Utilities.random(0, 100) <= enemy.stats.block_chance) {
+            return false;
+        }
+
+        // If attack is lower than defence, block the attack
+        if (this.stats.attack < enemy.stats.defence) {
+            return false;
+        }
+
+        var damage = this.stats.attack;
+
+        // Draw random number for critical chance
+        if (Utilities.random(0, 100) <= this.stats.critical_chance) {
+            damage *= this.stats.critical_multiplier;
+        }
+
+        damage -= enemy.stats.defence;
+
+        return damage;
     }
 
     move_to(x, y) {
