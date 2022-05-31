@@ -15,8 +15,13 @@ class Tile {
     }
 
     set_image_size() {
-        this.image.height = image_size;
-        this.image.width = image_size;
+        if (this.image.height !== image_size) {
+            this.image.height = image_size;
+        }
+
+        if (this.image.width !== image_size) {
+            this.image.width = image_size;
+        }
     }
 
     set_image(image_src) {
