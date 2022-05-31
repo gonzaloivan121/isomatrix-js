@@ -4,6 +4,7 @@ class Enemy extends Entity {
     constructor(x, y, stats = new Stats()) {
         super(x, y, "./assets/img/entities/enemy.png");
         this.stats = stats;
+        this.experience_to_give = Utilities.random(1, 10);
     }
 
     set_experience(experience) {
