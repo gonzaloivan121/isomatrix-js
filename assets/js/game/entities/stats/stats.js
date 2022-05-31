@@ -1,28 +1,40 @@
 class Stats {
+    level = 1;
     health = 100;
     max_health = 100;
-    level = 1;
     experience = 0;
     experience_to_level_up = 5;
+    upgrade_points = 0;
     attack = 1;
     critical_chance = 5;
     critical_multiplier = 2;
     defence = 1;
     block_chance = 5;
-    movement_area = 1;
+    action_area = 1;
 
-    constructor(attack = 1, defence = 1, critical_chance = 5, critical_multiplier = 2, block_chance = 5, movement_area = 1) {
+    constructor(attack = 1, defence = 1, critical_chance = 5, critical_multiplier = 2, block_chance = 5, action_area = 1) {
         this.attack = attack;
         this.defence = defence;
         this.critical_chance = critical_chance;
         this.critical_multiplier = critical_multiplier;
         this.block_chance = block_chance;
-        this.movement_area = movement_area;
+        this.action_area = action_area;
+    }
+
+    level_up() {
+        this.level++;
+        this.increase_upgrade_points(1);
+        this.experience -= this.experience_to_level_up;
+        this.experience_to_level_up *= 2;
+
+        if (this.experience >= this.experience_to_level_up) {
+            this.level_up();
+        }
     }
 
     increase_health(health) {
-        if (this.health + health >= 100) {
-            this.health = 100;
+        if (this.health + health >= this.max_health) {
+            this.health = this.max_health;
         } else {
             this.health += health;
         }
@@ -44,22 +56,20 @@ class Stats {
         this.max_health -= max_health;
     }
 
-    level_up() {
-        this.level++;
-        this.experience -= this.experience_to_level_up;
-        this.experience_to_level_up *= 2;
-
-        if (this.experience >= this.experience_to_level_up) {
-            this.level_up();
-        }
-    }
-
     gain_experience(experience) {
         this.experience += experience;
 
         if (this.experience >= this.experience_to_level_up) {
             this.level_up();
         }
+    }
+
+    increase_upgrade_points(upgrade_points) {
+        this.upgrade_points += upgrade_points;
+    }
+
+    decrease_upgrade_points(upgrade_points) {
+        this.upgrade_points -= upgrade_points;
     }
 
     increase_attack(attack) {
@@ -94,11 +104,11 @@ class Stats {
         this.defence -= defence;
     }
 
-    increase_movement_area(movement_area) {
-        this.movement_area += movement_area;
+    increase_action_area(action_area) {
+        this.action_area += action_area;
     }
 
-    decrease_movement_area(movement_area) {
-        this.movement_area -= movement_area;
+    decrease_action_area(action_area) {
+        this.action_area -= action_area;
     }
 }
