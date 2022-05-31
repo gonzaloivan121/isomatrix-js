@@ -12,9 +12,14 @@ var IntervalID;
 
 var grid = [];
 
-var input = new Vector();
-
-var player = new Player(0.5, 0.5);
+var player = new Player(0.5, 0.5, new Stats(
+    10, // Atack
+    5,  // Defence
+    10, // Critical Chance
+    2,  // Critical Multiplier
+    5,  // Block Chance
+    1   // Action Area
+));
 
 var enemy = new Enemy(
     Utilities.random(-1, grid_size - 2) - 0.5,

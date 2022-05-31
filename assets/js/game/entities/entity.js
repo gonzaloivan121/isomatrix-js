@@ -1,9 +1,9 @@
 class Entity extends Tile {
-    stats = new Stats();
     alive = true;
 
-    constructor(x, y, image_src) {
+    constructor(x, y, image_src, stats = new Stats()) {
         super(x, y, image_src);
+        this.stats = stats;
     }
 
     fight(enemy) {
