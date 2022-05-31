@@ -13,7 +13,9 @@ class Block extends Tile {
                 this.image.src = this.image.src.replace(".png", "_selected_.png");
             }
         } else {
-            this.image.src = this.image.src.replace("_selected_.png", ".png");
+            if (this.image.src[this.image.src.length - 5] === "_") {
+                this.image.src = this.image.src.replace("_selected_.png", ".png");
+            }
         }
         this.selected = selected;
     }

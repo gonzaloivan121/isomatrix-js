@@ -189,7 +189,9 @@ function update_ui() {
         for (const stat in player.stats) {
             if (Object.hasOwnProperty.call(player.stats, stat)) {
                 var stat_value_div = document.getElementById("player-" + stat);
-                stat_value_div.innerText = player.stats[stat];
+                if (stat_value_div.innerText != player.stats[stat]) {
+                    stat_value_div.innerText = player.stats[stat];
+                }
             }
         }
     }
@@ -198,7 +200,9 @@ function update_ui() {
         for (const stat in enemy.stats) {
             if (Object.hasOwnProperty.call(enemy.stats, stat)) {
                 var stat_value_div = document.getElementById("enemy-" + stat);
-                stat_value_div.innerText = enemy.stats[stat];
+                if (stat_value_div.innerText != enemy.stats[stat]) {
+                    stat_value_div.innerText = enemy.stats[stat];
+                }
             }
         }
     }
