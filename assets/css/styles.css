@@ -22,7 +22,7 @@ body {
 
 .pannel {
     width: 15%;
-    background: linear-gradient(#081236, #0B1847);
+    background: linear-gradient(#081236, #142150);
     padding: 30px;
 }
 
@@ -71,6 +71,7 @@ body {
 
 .exp-bar .bar {
     background: #4494cc;
+    width: 100%;
 }
 
 .exp-bar .hit {
