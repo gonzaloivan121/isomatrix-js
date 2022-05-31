@@ -1,5 +1,6 @@
 class Entity extends Tile {
     alive = true;
+    has_turn = false;
 
     constructor(x, y, image_src, stats = new Stats()) {
         super(x, y, image_src);
@@ -7,6 +8,7 @@ class Entity extends Tile {
     }
 
     fight(enemy) {
+        if (!this.has_turn) return;
         var damage = this.calculate_damage(enemy);
 
         if (damage === false) {
@@ -20,7 +22,7 @@ class Entity extends Tile {
             enemy.die();
         }
 
-        return true;
+        return damage;
     }
 
     die() {
@@ -51,11 +53,13 @@ class Entity extends Tile {
     }
 
     move_to(x, y) {
+        if (!this.has_turn) return;
         this.position.x = x;
         this.position.y = y;
     }
 
     move(position) {
+        if (!this.has_turn) return;
         if (this.position.x < -1.5) {
             this.position.x = -1.5;
         } else if (this.position.x > grid_size - 2.5) {

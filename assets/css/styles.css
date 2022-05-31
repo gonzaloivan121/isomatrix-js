@@ -45,6 +45,45 @@ body {
     text-transform: capitalize;
 }
 
-/*canvas {
-    width: 70%;
-}*/
+.health-bar,
+.exp-bar {
+    margin: 10px 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 20px;
+    padding: 5px;
+    background: #ddd;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.bar {
+    background: #c54;
+    width: 100%;
+    height: 10px;
+    position: relative;
+
+    transition: width .5s linear;
+}
+
+.exp-bar .bar {
+    background: #4494cc;
+}
+
+.exp-bar .hit {
+    width: 100%;
+}
+
+.hit {
+    background: rgba(255,255,255,0.6);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 0px;
+
+    transition: width .5s linear;
+}

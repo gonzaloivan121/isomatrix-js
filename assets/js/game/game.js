@@ -3,7 +3,7 @@ const context = canvas.getContext("2d");
 var canvas_width = canvas.clientWidth;
 var canvas_height = canvas.clientHeight;
 var grid_size = 32;
-var grid_height = 1;
+var grid_height = 4;
 var image_size = 32;
 
 var UPS = 60;
@@ -20,17 +20,45 @@ var player = new Player(0.5, 0.5, new Stats(
     5,  // Block Chance
     1   // Action Area
 ));
+player.has_turn = true;
 
 var enemy = new Enemy(
     Utilities.random(-1, grid_size - 2) - 0.5,
-    Utilities.random(-1, grid_size - 2) - 0.5
+    Utilities.random(-1, grid_size - 2) - 0.5,
+    new Stats(
+        Utilities.random(1, 10), // Atack
+        Utilities.random(1, 5),  // Defence
+        Utilities.random(1, 10), // Critical Chance
+        Utilities.random(1, 3),  // Critical Multiplier
+        Utilities.random(1, 10), // Block Chance
+        Utilities.random(1, 3)   // Action Area
+    )
 );
 
+var enemies = [];
+
+function generate_enemies() {
+    for (var i = 0; i <= Utilities.random(1, 10); i++) {
+        enemies.push(
+            new Enemy(
+                Utilities.random(-1, grid_size - 2) - 0.5,
+                Utilities.random(-1, grid_size - 2) - 0.5,
+                Utilities.random(1, 10), // Atack
+                Utilities.random(1, 5),  // Defence
+                Utilities.random(1, 10), // Critical Chance
+                Utilities.random(1, 3),  // Critical Multiplier
+                Utilities.random(1, 10), // Block Chance
+                Utilities.random(1, 3)   // Action Area
+            )
+        );
+    }
+}
+
+generate_enemies();
 start_game();
 
 document.addEventListener('keydown', function (event) {
     const key = event.key.toUpperCase();
-
     move_player(key);
 });
 
@@ -103,15 +131,81 @@ function check_action_area(x, y) {
         y - 0.5 > player.position.y - player.stats.action_area
     ) {
         if (enemy.position.x === x - 1.5 && enemy.position.y === y - 1.5 && enemy.alive) {
-            if (player.fight(enemy)) {
-                console.log(enemy.stats)
-            } else {
+            var attack_result = player.fight(enemy);
+            if (!attack_result) {
                 alert("Attack blocked!");
+            } else {
+                update_health_bar("enemy", attack_result);
+                update_experience_bar(player.stats);
             }
         } else {
             player.move_to(x - 1.5, y - 1.5);
         }
     }
+}
+
+function update_experience_bar(stats = null) {
+    if (stats === null) return;
+
+    var eBar = document.getElementById("player-expbar"),
+        bar = document.getElementById("player-expbar-bar"),
+        hit = document.getElementById("player-expbar-hit");
+    
+    var max_experience = eBar.dataset.maxExperience,
+        experience = eBar.dataset.experience;
+
+    var new_experience = stats.experience;
+
+    var bar_width = (new_experience / max_experience) * 100;
+    var hit_width = (stats.experience / experience) * 100 + "%";
+
+    hit.style.width = hit_width;
+    eBar.dataset.experience = new_experience;
+
+    setTimeout(() => {
+        hit.style.width = "0";
+        bar.style.width = bar_width + "%";
+    }, 500);
+}
+
+function update_health_bar(type = null, damage = null) {
+    if (type === null || damage === null) return;
+
+    var hBar = document.getElementById(type + "-healthbar"),
+        bar = document.getElementById(type + "-healthbar-bar"),
+        hit = document.getElementById(type + "-healthbar-hit");
+
+    var max_health = hBar.dataset.maxHealth,
+        health = hBar.dataset.health;
+
+    if (health < 0) {
+        return;
+    }
+
+    var new_health = health - damage;
+
+    var bar_width = (new_health / max_health) * 100;
+    var hit_width = (damage / health) * 100 + "%";
+
+    hit.style.width = hit_width;
+    hBar.dataset.health = new_health;
+
+    setTimeout(() => {
+        hit.style.width = "0";
+        bar.style.width = bar_width + "%";
+    }, 500);
+}
+
+function reset_health_bar(type = null) {
+    if (type === null) return;
+
+    var hBar = document.getElementById(type + "-healthbar"),
+        bar = document.getElementById(type + "-healthbar-bar"),
+        hit = document.getElementById(type + "-healthbar-hit");
+
+    hBar.dataset.health = hBar.dataset.maxHealth;
+    hit.style.width = "0";
+    bar.style.width = "100%";
 }
 
 // GAME LOOP
@@ -293,8 +387,6 @@ function generate_stats_ui(type = null) {
         case "enemy":
             stats = enemy.stats;
             break;
-        default:
-            stats = null;
     }
 
     if (stats === null) return;

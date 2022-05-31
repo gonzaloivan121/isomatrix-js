@@ -1,6 +1,4 @@
 class Block extends Tile {
-    selected = false;
-
     constructor(x, y, image_src) {
         super(x, y, image_src);
         this.original_position = new Vector(x, y);
@@ -17,7 +15,6 @@ class Block extends Tile {
                 this.image.src = this.image.src.replace("_selected_.png", ".png");
             }
         }
-        this.selected = selected;
     }
 
     hover(selected) {
