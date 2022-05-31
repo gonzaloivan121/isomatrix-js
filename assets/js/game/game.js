@@ -22,20 +22,8 @@ var player = new Player(0.5, 0.5, new Stats(
 ));
 player.has_turn = true;
 
-var enemy = new Enemy(
-    Utilities.random(-1, grid_size - 2) - 0.5,
-    Utilities.random(-1, grid_size - 2) - 0.5,
-    new Stats(
-        Utilities.random(1, 10), // Atack
-        Utilities.random(1, 5),  // Defence
-        Utilities.random(1, 10), // Critical Chance
-        Utilities.random(1, 3),  // Critical Multiplier
-        Utilities.random(1, 10), // Block Chance
-        Utilities.random(1, 3)   // Action Area
-    )
-);
-
 var enemies = [];
+var enemy;
 
 function generate_enemies() {
     for (var i = 0; i <= Utilities.random(1, 10); i++) {
@@ -43,15 +31,19 @@ function generate_enemies() {
             new Enemy(
                 Utilities.random(-1, grid_size - 2) - 0.5,
                 Utilities.random(-1, grid_size - 2) - 0.5,
-                Utilities.random(1, 10), // Atack
-                Utilities.random(1, 5),  // Defence
-                Utilities.random(1, 10), // Critical Chance
-                Utilities.random(1, 3),  // Critical Multiplier
-                Utilities.random(1, 10), // Block Chance
-                Utilities.random(1, 3)   // Action Area
+                new Stats(
+                    Utilities.random(1, 10), // Atack
+                    Utilities.random(1, 5),  // Defence
+                    Utilities.random(1, 10), // Critical Chance
+                    Utilities.random(1, 3),  // Critical Multiplier
+                    Utilities.random(1, 10), // Block Chance
+                    Utilities.random(1, 3)   // Action Area
+                )
             )
         );
     }
+
+    enemy = enemies[Utilities.random(0, enemies.length)];
 }
 
 generate_enemies();
@@ -141,71 +133,78 @@ function check_action_area(x, y) {
         } else {
             player.move_to(x - 1.5, y - 1.5);
         }
+    } else {
+        for (var i = 0; i < enemies.length; i++) {
+            if (enemies[i].position.x === x - 1.5 && enemies[i].position.y === y - 1.5) {
+                enemy = enemies[i];
+            }
+        }
     }
 }
 
 function update_experience_bar(stats = null) {
     if (stats === null) return;
-
-    var eBar = document.getElementById("player-expbar"),
-        bar = document.getElementById("player-expbar-bar"),
-        hit = document.getElementById("player-expbar-hit");
-    
-    var max_experience = eBar.dataset.maxExperience,
-        experience = eBar.dataset.experience;
-
-    var new_experience = stats.experience;
-
-    var bar_width = (new_experience / max_experience) * 100;
-    var hit_width = (stats.experience / experience) * 100 + "%";
-
-    hit.style.width = hit_width;
-    eBar.dataset.experience = new_experience;
-
-    setTimeout(() => {
-        hit.style.width = "0";
-        bar.style.width = bar_width + "%";
-    }, 500);
+    var hit = document.getElementById("player-expbar-hit");
+    var bar_width = (stats.experience / stats.experience_to_level_up) * 100;
+    hit.style.width = (100 - bar_width) + "%";
 }
 
 function update_health_bar(type = null, damage = null) {
     if (type === null || damage === null) return;
 
-    var hBar = document.getElementById(type + "-healthbar"),
-        bar = document.getElementById(type + "-healthbar-bar"),
-        hit = document.getElementById(type + "-healthbar-hit");
+    var stats = null;
 
-    var max_health = hBar.dataset.maxHealth,
-        health = hBar.dataset.health;
-
-    if (health < 0) {
-        return;
+    switch (type) {
+        case "player":
+            stats = player.stats;
+            break;
+        case "enemy":
+            stats = enemy.stats;
+            break;
     }
 
-    var new_health = health - damage;
+    if (stats === null) return;
 
-    var bar_width = (new_health / max_health) * 100;
-    var hit_width = (damage / health) * 100 + "%";
+    var bar = document.getElementById(type + "-healthbar-bar");
+    var hit = document.getElementById(type + "-healthbar-hit");
+
+    var bar_width = (stats.health / stats.max_health) * 100 + "%";
+    var hit_width = (damage / (stats.health + damage)) * 100 + "%";
 
     hit.style.width = hit_width;
-    hBar.dataset.health = new_health;
 
     setTimeout(() => {
         hit.style.width = "0";
-        bar.style.width = bar_width + "%";
+        bar.style.width = bar_width;
     }, 500);
 }
 
 function reset_health_bar(type = null) {
     if (type === null) return;
 
-    var hBar = document.getElementById(type + "-healthbar"),
-        bar = document.getElementById(type + "-healthbar-bar"),
-        hit = document.getElementById(type + "-healthbar-hit");
+    var bar = document.getElementById(type + "-healthbar-bar");
+    var hit = document.getElementById(type + "-healthbar-hit");
 
-    hBar.dataset.health = hBar.dataset.maxHealth;
     hit.style.width = "0";
     bar.style.width = "100%";
+}
+
+function revive(type = null) {
+    if (type === null) return;
+    var revived = false;
+    switch (type) {
+        case "player":
+            revived = player.revive();
+            break;
+        case "enemy":
+            revived = enemy.revive();
+            break;
+        default:
+            return;
+    }
+    if (revived) {
+        reset_health_bar(type);
+    }
 }
 
 // GAME LOOP
@@ -213,19 +212,12 @@ function start_interval(time) {
     IntervalID = setInterval(() => {
         draw_background();
         update_tiles();
-        if (enemy.alive) {
-            update_enemy();
+        update_enemies();
+        if (player.alive) {
+            update_player();
         }
-        update_player();
         update_ui();
     }, time);
-}
-
-function update_UPS(val) {
-    UPS = parseInt(val);
-    Interval = 1000 / UPS;
-    clearInterval(IntervalID);
-    start_interval(Interval);
 }
 
 function draw_background() {
@@ -242,14 +234,6 @@ function action_on_all_tiles(callback) {
             for (var z = 0; z < grid[x][y].length; z++) {
                 callback(grid[x][y][z]);
             }
-        }
-    }
-}
-
-function action_on_all_tiles_from_z(z, callback) {
-    for (var x = 0; x < grid.length; x++) {
-        for (var y = 0; y < grid[x].length; y++) {
-            callback(grid[x][y][z]);
         }
     }
 }
@@ -283,6 +267,16 @@ function update_player() {
     }
 }
 
+function update_enemies() {
+    if (enemies.length !== 0) {
+        for (var i = 0; i < enemies.length; i++) {
+            if (enemies[i].alive) {
+                enemies[i].update();
+            }
+        }
+    }
+}
+
 function update_ui() {
     if (player !== undefined) {
         for (const stat in player.stats) {
@@ -304,12 +298,6 @@ function update_ui() {
                 }
             }
         }
-    }
-}
-
-function update_enemy() {
-    if (enemy !== undefined) {
-        enemy.update();
     }
 }
 
