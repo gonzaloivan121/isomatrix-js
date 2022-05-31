@@ -5,4 +5,8 @@ class Enemy extends Entity {
         super(x, y, "./assets/img/entities/enemy.png");
         this.stats = stats;
     }
+
+    set_experience(experience) {
+        this.experience_to_give = experience;
+    }
 }
