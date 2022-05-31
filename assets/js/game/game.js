@@ -2,8 +2,8 @@ const canvas = document.getElementById('canvas');
 const context = canvas.getContext("2d");
 var canvas_width = canvas.clientWidth;
 var canvas_height = canvas.clientHeight;
-var grid_size = 16;
-var grid_height = 4;
+var grid_size = 32;
+var grid_height = 1;
 var image_size = 32;
 
 var UPS = 60;
@@ -14,8 +14,6 @@ var grid = [];
 
 var input = new Vector();
 
-start_game();
-
 var player = new Player(0.5, 0.5);
 
 var enemy = new Enemy(
@@ -23,9 +21,9 @@ var enemy = new Enemy(
     Utilities.random(-1, grid_size - 2) - 0.5
 );
 
-document.addEventListener('keydown', function (event) {
-    //if (event.repeat) return;
+start_game();
 
+document.addEventListener('keydown', function (event) {
     const key = event.key.toUpperCase();
 
     move_player(key);
@@ -85,19 +83,28 @@ canvas.onmousedown = function (e) {
                     screen_y >= tile.isometric_position.y && screen_y <= tile.isometric_position.y + image_size * 0.5 &&
                     z === 0
                 ) {
-                    tile.set_selected(true);
-
-                    if (enemy.position.x === x - 1.5 && enemy.position.y === y - 1.5 && enemy.alive) {
-                        if (player.fight(enemy)) {
-                            console.log(enemy.stats.health)
-                        } else {
-                            alert("Attack blocked!");
-                        }
-                    } else {
-                        player.move_to(x - 1.5, y - 1.5);
-                    }
+                    check_action_area(x, y);
                 }
             }
+        }
+    }
+}
+
+function check_action_area(x, y) {
+    if (
+        x - 1.5 <= player.position.x + player.stats.action_area &&
+        y - 1.5 <= player.position.y + player.stats.action_area &&
+        x - 0.5 > player.position.x - player.stats.action_area &&
+        y - 0.5 > player.position.y - player.stats.action_area
+    ) {
+        if (enemy.position.x === x - 1.5 && enemy.position.y === y - 1.5 && enemy.alive) {
+            if (player.fight(enemy)) {
+                console.log(enemy.stats)
+            } else {
+                alert("Attack blocked!");
+            }
+        } else {
+            player.move_to(x - 1.5, y - 1.5);
         }
     }
 }
@@ -111,6 +118,7 @@ function start_interval(time) {
             update_enemy();
         }
         update_player();
+        update_ui();
     }, time);
 }
 
@@ -122,7 +130,10 @@ function update_UPS(val) {
 }
 
 function draw_background() {
-    context.fillStyle = "#9b54ff";
+    var gradient = context.createLinearGradient(0, 0, 0, canvas_height);
+    gradient.addColorStop(0, "#7a33f1");
+    gradient.addColorStop(1, "#72fdff");
+    context.fillStyle = gradient;
     context.fillRect(0, 0, canvas_width, canvas_height);
 }
 
@@ -150,6 +161,16 @@ function update_tiles() {
             for (var y = 0; y < grid[x].length; y++) {
                 for (var z = 0; z < grid[x][y].length; z++) {
                     var tile = grid[x][y][z];
+                    if (
+                        tile.position.x - 1.5 <= player.position.x + player.stats.action_area &&
+                        tile.position.y - 1.5 <= player.position.y + player.stats.action_area &&
+                        tile.position.x - 0.5 > player.position.x - player.stats.action_area &&
+                        tile.position.y - 0.5 > player.position.y - player.stats.action_area
+                    ) {
+                        tile.set_selected(true);
+                    } else {
+                        tile.set_selected(false);
+                    }
                     tile.update();
                 }
             }
@@ -160,6 +181,26 @@ function update_tiles() {
 function update_player() {
     if (player !== undefined) {
         player.update();
+    }
+}
+
+function update_ui() {
+    if (player !== undefined) {
+        for (const stat in player.stats) {
+            if (Object.hasOwnProperty.call(player.stats, stat)) {
+                var stat_value_div = document.getElementById("player-" + stat);
+                stat_value_div.innerText = player.stats[stat];
+            }
+        }
+    }
+
+    if (enemy !== undefined) {
+        for (const stat in enemy.stats) {
+            if (Object.hasOwnProperty.call(enemy.stats, stat)) {
+                var stat_value_div = document.getElementById("enemy-" + stat);
+                stat_value_div.innerText = enemy.stats[stat];
+            }
+        }
     }
 }
 
@@ -218,14 +259,71 @@ function start_game() {
             }
         }
     }
+
+    generate_ui();
+
     if (IntervalID === undefined) {
         start_interval(Interval);
     }
 }
 
+function generate_ui() {
+    generate_stats_ui("player");
+    generate_stats_ui("enemy");
+}
+
+function generate_stats_ui(type = null) {
+    if (type === null) return;
+
+    var stats = null;
+
+    switch (type) {
+        case "player":
+            stats = player.stats;
+            break;
+        case "enemy":
+            stats = enemy.stats;
+            break;
+        default:
+            stats = null;
+    }
+
+    if (stats === null) return;
+
+    var stats_container = document.getElementById(type + "-stats");
+
+    for (const stat in stats) {
+        if (Object.hasOwnProperty.call(stats, stat)) {
+            var stat_div = document.createElement("div");
+            stat_div.classList.add("stat");
+
+            var stat_name_div = document.createElement("div");
+            stat_name_div.classList.add("stat-name");
+
+            var stat_name_arr = stat.split("_");
+            var stat_name = "";
+
+            stat_name_arr.forEach(word => {
+                stat_name += word + " ";
+            });
+
+            stat_name_div.innerText = stat_name;
+
+            var stat_value_div = document.createElement("div");
+            stat_value_div.classList.add("stat-value");
+            stat_value_div.id = type + "-" + stat;
+            stat_value_div.innerText = stats[stat];
+
+            stat_div.appendChild(stat_name_div);
+            stat_div.appendChild(stat_value_div);
+            stats_container.appendChild(stat_div);
+        }
+    }
+}
+
 function resize() {
-    canvas.width = window.visualViewport.width;
-    canvas.height = window.visualViewport.height;
+    canvas.width = window.innerWidth - window.innerWidth * 0.30;
+    canvas.height = window.innerHeight;
     canvas_width = canvas.clientWidth;
     canvas_height = canvas.clientHeight;
 }

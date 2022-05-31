@@ -29,16 +29,32 @@
 </head>
 
 <body>
-    <canvas id="canvas" width="1200" height="628"></canvas>
+    <!-- START CONTENT -->
+    <div class="content">
+        <div class="left pannel">
+            <div class="title">Player Stats</div>
+            <div class="stats" id="player-stats">
+                <!-- Insert stats via script -->
+            </div>
+        </div>
+        <canvas id="canvas" width="1200" height="628"></canvas>
+        <div class="right pannel">
+            <div class="title">Enemy Stats</div>
+            <div class="stats" id="enemy-stats">
+                <!-- Insert stats via script -->
+            </div>
+        </div>
+    </div>
+    <!-- END CONTENT -->
     <script src="./assets/js/game/vector.js"></script>
-    <!-- START IMPORTING TILES-->
+    <!-- START IMPORTING TILES -->
     <script src="./assets/js/game/tile.js"></script>
     <script src="./assets/js/game/blocks/block.js"></script>
     <script src="./assets/js/game/blocks/grass.js"></script>
     <script src="./assets/js/game/blocks/dirt.js"></script>
     <script src="./assets/js/game/blocks/stone.js"></script>
     <script src="./assets/js/game/blocks/bedrock.js"></script>
-    <!-- END IMPORTING TILES-->
+    <!-- END IMPORTING TILES -->
     <script src="./assets/js/game/entities/stats/stats.js"></script>
     <script src="./assets/js/game/entities/entity.js"></script>
     <script src="./assets/js/game/entities/player.js"></script>
