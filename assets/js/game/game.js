@@ -115,7 +115,26 @@ canvas.onmousedown = function (e) {
     }
 }
 
+function open_inventory() {
+    var inventory_div = document.getElementById("inventory");
+
+    if (inventory_div.classList.contains("active")) {
+        inventory_div.classList.remove("active");
+    } else {
+        inventory_div.classList.add("active");
+    }
+}
+
 function check_action_area(x, y) {
+    if (enemy.position.x !== x - 1.5 && enemy.position.y !== y - 1.5) {
+        for (var i = 0; i < enemies.length; i++) {
+            if (enemies[i].position.x === x - 1.5 && enemies[i].position.y === y - 1.5) {
+                enemy = enemies[i];
+                update_health_bar("enemy", 0);
+            }
+        }
+    }
+
     if (
         x - 1.5 <= player.position.x + player.stats.action_area &&
         y - 1.5 <= player.position.y + player.stats.action_area &&
@@ -132,13 +151,6 @@ function check_action_area(x, y) {
             }
         } else {
             player.move_to(x - 1.5, y - 1.5);
-        }
-    } else {
-        for (var i = 0; i < enemies.length; i++) {
-            if (enemies[i].position.x === x - 1.5 && enemies[i].position.y === y - 1.5) {
-                enemy = enemies[i];
-                update_health_bar("enemy", 0);
-            }
         }
     }
 }
