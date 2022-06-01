@@ -47,7 +47,7 @@
                 <!-- Insert stats via script -->
             </div>
             <div class="buttons">
-                <button class="inventory-button box-shadow" onclick="open_inventory()">Inventory</button>
+                <button class="inventory-button box-shadow" onclick="toogle_inventory()">Inventory</button>
             </div>
         </div>
 
@@ -64,7 +64,9 @@
                 <!-- Insert stats via script -->
             </div>
         </div>
+        <!-- START INVENTORY -->
         <div id="inventory" class="inventory box-shadow"></div>
+        <!-- END INVENTORY -->
     </div>
     <!-- END CONTENT -->
     <script src="./assets/js/game/vector.js"></script>
@@ -76,10 +78,17 @@
     <script src="./assets/js/game/blocks/stone.js"></script>
     <script src="./assets/js/game/blocks/bedrock.js"></script>
     <!-- END IMPORTING TILES -->
+    <!-- START IMPORTING INVENTORY -->
+    <script src="./assets/js/game/inventory/item.js"></script>
+    <script src="./assets/js/game/inventory/stack.js"></script>
+    <script src="./assets/js/game/inventory/inventory.js"></script>
+    <!-- END IMPORTING INVENTORY -->
+    <!-- START IMPORTING ENTITIES -->
     <script src="./assets/js/game/entities/stats/stats.js"></script>
     <script src="./assets/js/game/entities/entity.js"></script>
     <script src="./assets/js/game/entities/player.js"></script>
     <script src="./assets/js/game/entities/enemy.js"></script>
+    <!-- END IMPORTING ENTITIES -->
     <script src="./assets/js/game/utilities.js"></script>
     <script src="./assets/js/game/input.js"></script>
     <script src="./assets/js/game/game.js"></script>

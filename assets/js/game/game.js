@@ -25,6 +25,24 @@ player.has_turn = true;
 var enemies = [];
 var enemy;
 
+var items = [];
+
+function generate_items() {
+    Utilities.load_json("./assets/json/items.json", (response) => {
+        try {
+            var data = JSON.parse(response);
+
+            for (var i = 0; i < data.length; i++) {
+                const item = data[i];
+                items.push(new Item(item.id, item.name, item.description, item.can_stack, item.max_stack_size, item.image));
+            }
+            
+        } catch (e) {
+            console.error(e);
+        }
+    })
+}
+
 function generate_enemies() {
     for (var i = 0; i <= Utilities.random(1, 10); i++) {
         enemies.push(
@@ -115,7 +133,7 @@ canvas.onmousedown = function (e) {
     }
 }
 
-function open_inventory() {
+function toogle_inventory() {
     var inventory_div = document.getElementById("inventory");
 
     if (inventory_div.classList.contains("active")) {
