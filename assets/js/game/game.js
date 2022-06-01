@@ -442,10 +442,8 @@ function generate_stats_ui(type = null) {
 }
 
 function resize() {
-    canvas.width = window.innerWidth - window.innerWidth * 0.30;
-    canvas.height = window.innerHeight;
-    canvas_width = canvas.clientWidth;
-    canvas_height = canvas.clientHeight;
+    canvas_width = canvas.width = window.innerWidth - window.innerWidth * 0.30;
+    canvas_height = canvas.height = window.innerHeight;
 }
 resize();
 window.addEventListener("resize", resize);
