@@ -26,6 +26,7 @@ var enemies = [];
 var enemy;
 
 var items = [];
+generate_items();
 
 function generate_items() {
     Utilities.load_json("./assets/json/items.json", (response) => {
@@ -34,7 +35,19 @@ function generate_items() {
 
             for (var i = 0; i < data.length; i++) {
                 const item = data[i];
-                items.push(new Item(item.id, item.name, item.description, item.can_stack, item.max_stack_size, item.image));
+                items.push(
+                    new Item(
+                        item.id,
+                        item.name,
+                        item.description,
+                        item.type,
+                        item.buy_value,
+                        item.sell_value,
+                        item.can_stack,
+                        item.max_stack_size,
+                        item.image
+                    )
+                );
             }
             
         } catch (e) {

@@ -3,8 +3,22 @@
         "id": 0,
         "name": "Pick of Destiny",
         "description": "La púa le otorga a su portador poderes poco naturales con instrumentos con cuerda.",
+        "type": 5,
+        "buy_value": 50,
+        "sell_value": 25,
         "can_stack": true,
         "max_stack_size": 64,
+        "image": "./assets/img/items/0.png"
+    },
+    {
+        "id": 1,
+        "name": "All Mighty Sword",
+        "description": "This Sword is the best of the best.",
+        "type": 1,
+        "buy_value": 50,
+        "sell_value": 25,
+        "can_stack": false,
+        "max_stack_size": 1,
         "image": "./assets/img/items/0.png"
     }
 ]

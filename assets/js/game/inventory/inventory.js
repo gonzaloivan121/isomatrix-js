@@ -1,7 +1,7 @@
 class Inventory {
     stacks = [];
 
-    constructor(max_stacks = 16) {
+    constructor(max_stacks = 15) {
         this.max_stacks = max_stacks;
     }
 
@@ -9,7 +9,11 @@ class Inventory {
         if (this.stacks.length > 0) {
             this.stacks.forEach(stack => {
                 if (stack.item.id === item.id) {
-                    stack.increase_quantity();
+                    if (item.can_stack) {
+                        stack.increase_quantity();
+                    } else {
+                        this.stacks.push(new Stack(item, 1));
+                    }
                 }
             })
         } else {
