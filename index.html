@@ -39,7 +39,7 @@
                         <div id="player-healthbar-hit" class="hit"></div>
                     </div>
                 </div>
-                <div id="player-expbar" class="exp-bar" data-max-experience="5" data-experience="0">
+                <div id="player-expbar" class="exp-bar">
                     <div id="player-expbar-bar" class="bar">
                         <div id="player-expbar-hit" class="hit"></div>
                     </div>
@@ -66,13 +66,53 @@
         </div>
         <!-- START INVENTORY -->
         <div id="inventory" class="inventory box-shadow">
-            <div class="header fullwidth">
-
+            <div class="header">
+                <div class="inventory-health">100</div>
+                <div class="inventory-title">Inventory</div>
+                <div class="inventory-currency">0</div>
             </div>
-            <div class="container fullwidth">
-            
+            <div class="container">
+                <div class="inventory-left">
+                    <div class="selector">
+                        <div class="selector-title">Lorem Ipsum</div>
+                        <ul class="selector-list">
+                            <li class="selector-item active"><img src="./assets/img/icons/weapon.png" width="32"></li>
+                            <li class="selector-item"><img src="./assets/img/icons/shield.png" width="32"></li>
+                            <li class="selector-item"><img src="./assets/img/icons/gauntlet.png" width="32"></li>
+                            <li class="selector-item"><img src="./assets/img/icons/ring.png" width="32"></li>
+                            <li class="selector-item"><img src="./assets/img/icons/helmet.png" width="32"></li>
+                            <li class="selector-item"><img src="./assets/img/icons/chest_armour.png" width="32"></li>
+                            <li class="selector-item"><img src="./assets/img/icons/leg_armour.png" width="32"></li>
+                            <li class="selector-item"><img src="./assets/img/icons/boots.png" width="32"></li>
+                            <li class="selector-item deactivated"><img src="./assets/img/icons/pendant.png" width="32"></li>
+                        </ul>
+                        <div class="selector-underline">
+                            <div class="selector-line"></div>
+                        </div>
+                    </div>
+                    <div class="inventory-grid">
+                        <div class="intentory-item available selected"></div>
+                        <div class="intentory-item available"></div>
+                        <div class="intentory-item available"></div>
+                        <div class="intentory-item available"></div>
+                        <div class="intentory-item available"></div>
+                        <div class="intentory-item available"></div>
+                        <div class="intentory-item"></div>
+                        <div class="intentory-item"></div>
+                        <div class="intentory-item"></div>
+                        <div class="intentory-item"></div>
+                        <div class="intentory-item"></div>
+                        <div class="intentory-item"></div>
+                        <div class="intentory-item"></div>
+                        <div class="intentory-item"></div>
+                        <div class="intentory-item"></div>
+                    </div>
+                </div>
+                <div class="inventory-right">
+                
+                </div>
             </div>
-            <div class="footer fullwidth">
+            <div class="footer">
             
             </div>
         </div>
@@ -89,6 +129,7 @@
     <script src="./assets/js/game/blocks/bedrock.js"></script>
     <!-- END IMPORTING TILES -->
     <!-- START IMPORTING INVENTORY -->
+    <script src="./assets/js/game/inventory/item_types.js"></script>
     <script src="./assets/js/game/inventory/item.js"></script>
     <script src="./assets/js/game/inventory/stack.js"></script>
     <script src="./assets/js/game/inventory/inventory.js"></script>
