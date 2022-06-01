@@ -216,9 +216,16 @@ ul, ol {
 
 .selector-item {
     filter: brightness(0.5);
+    transition: transform .2s ease-in-out, filter .2s ease-in-out;
+}
+
+.selector-item:hover {
+    transform: scale(1.1);
+    cursor: pointer;
 }
 
 .selector-item.active {
+    transform: scale(1.1);
     filter: brightness(1);
 }
 
@@ -249,35 +256,35 @@ ul, ol {
     margin: 20px;
 }
 
-.intentory-item {
+.inventory-item {
     aspect-ratio: 1/1;
     background: rgb(110, 110, 110, 0.5);
     border: 2px solid rgb(255, 255, 255, 0.25);
     border-radius: 5px;
 }
 
-.intentory-item.available {
+.inventory-item.available {
     background: rgb(20, 20, 20, 0.9);
     border: 2px solid rgb(140, 140, 140, 0.5);
     cursor: pointer;
 }
 
-.intentory-item.available:hover {
+.inventory-item.available:hover {
     -webkit-box-shadow: 0px 0px 10px 0px rgb(255, 255, 255, 0.5);
     box-shadow: 0px 0px 10px 0px rgb(255, 255, 255, 0.5);
     border: 2px solid rgb(255, 255, 255, 1) !important;
     position: relative;
 }
 
-.intentory-item.selected {
+.inventory-item.selected {
     -webkit-box-shadow: 0px 0px 10px 0px rgb(255, 255, 255, 0.5);
     box-shadow: 0px 0px 10px 0px rgb(255, 255, 255, 0.5);
     border: 2px solid rgb(255, 255, 255, 1) !important;
     position: relative;
 }
 
-.intentory-item.selected::before,
-.intentory-item.selected::after {
+.inventory-item.selected::before,
+.inventory-item.selected::after {
     content: " ";
     position: absolute;
     top: -5px;
@@ -288,7 +295,7 @@ ul, ol {
     height: calc(100% - 20px);
 }
 
-.intentory-item.selected::after {
+.inventory-item.selected::after {
     left: calc(100% - 10px);
     border-left: 15px solid transparent;
     border-right: 0;
