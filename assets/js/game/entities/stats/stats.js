@@ -25,7 +25,7 @@ class Stats {
         this.level++;
         this.increase_upgrade_points(1);
         this.experience -= this.experience_to_level_up;
-        this.experience_to_level_up *= 2;
+        this.experience_to_level_up = Math.floor(this.experience_to_level_up * 1.75);
 
         if (this.experience >= this.experience_to_level_up) {
             this.level_up();
