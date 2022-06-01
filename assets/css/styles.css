@@ -14,6 +14,18 @@ body {
     overflow: hidden;
 }
 
+.canvas {
+    transition: filter .5s ease-in-out;
+}
+
+.canvas.blur {
+    filter: blur(2px);
+}
+
+.fullwidth {
+    width: 100%;
+}
+
 .content {
     height: 100vh;
     width: 100vw;
@@ -133,4 +145,18 @@ body {
 .inventory.active {
     top: calc(50% - 70% * 0.5);
     opacity: 1;
+}
+
+.inventory .header {
+    height: calc(15% - 2px);
+    border-bottom: 2px solid #ffffff14;
+}
+
+.inventory .container {
+    height: calc(75% - 2px);
+    border-bottom: 2px solid #ffffff14;
+}
+
+.inventory .footer {
+    height: 10%;
 }

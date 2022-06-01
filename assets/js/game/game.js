@@ -138,8 +138,10 @@ function toogle_inventory() {
 
     if (inventory_div.classList.contains("active")) {
         inventory_div.classList.remove("active");
+        canvas.classList.remove("blur");
     } else {
         inventory_div.classList.add("active");
+        canvas.classList.add("blur");
     }
 }
 
