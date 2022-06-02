@@ -58,13 +58,13 @@ class ItemType {
         var name = false;
         for (const type in this) {
             if (this[type] === value) {
-                name = this.get_nice_names(type);
+                name = this.get_nice_name(type);
             }
         }
         return name;
     }
 
-    static get_nice_names(type) {
+    static get_nice_name(type) {
         var name = false;
         switch (type) {
             case "equipment":
