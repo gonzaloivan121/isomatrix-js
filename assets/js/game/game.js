@@ -56,6 +56,46 @@ function generate_items() {
     })
 }
 
+listen_to_selector_click();
+listen_to_inventory_click();
+
+function listen_to_selector_click() {
+    var types = ItemType.get_all_types();
+    types.forEach(type => {
+        var selector = document.getElementById("selector-" + type);
+        if (selector !== null) {
+            selector.addEventListener("click", (ev) => {
+                if (!selector.classList.contains("deactivated") && !selector.classList.contains("active")) {
+                    set_selector(selector);
+                }
+            });
+        }
+    });
+}
+
+function listen_to_inventory_click() {
+    var availale_inventory_items = document.getElementsByClassName("inventory-item");
+    for (var inventory_item of availale_inventory_items) {
+        inventory_item.addEventListener("click", (ev) => {
+            if (ev.target.classList.contains("available") && !ev.target.classList.contains("selected")) {
+                set_inventory_selected(ev.target);
+            }
+        });
+    }
+}
+
+function set_inventory_selected(inventory_item) {
+    var selected_inventory_item = document.getElementsByClassName("inventory-item selected")[0];
+    selected_inventory_item.classList.remove("selected");
+    inventory_item.classList.add("selected");
+}
+
+function set_selector(selector) {
+    var active_selector = document.getElementsByClassName("selector-item active")[0];
+    active_selector.classList.remove("active");
+    selector.classList.add("active");
+}
+
 function generate_enemies() {
     for (var i = 0; i <= Utilities.random(1, 10); i++) {
         enemies.push(

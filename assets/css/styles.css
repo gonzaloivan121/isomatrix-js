@@ -228,6 +228,7 @@ ul, ol {
 .selector-item.active {
     transform: scale(1.1);
     filter: brightness(1);
+    cursor: auto;
 }
 
 .selector-item.deactivated {

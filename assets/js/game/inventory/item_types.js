@@ -48,6 +48,14 @@ class ItemType {
         return name;
     }
 
+    static get_all_types() {
+        var names = [];
+        for (const type in this) {
+            names.push(type);
+        }
+        return names;
+    }
+
     static get_type_with_nice_names(value) {
         var name = false;
         for (const type in this) {
