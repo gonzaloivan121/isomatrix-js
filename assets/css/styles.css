@@ -140,19 +140,20 @@ ul, ol {
     position: absolute;
     width: 70%;
     height: 70%;
-    top: 100%;
+    top: calc(50% - 70% * 0.5);
     left: calc(50% - 70% * 0.5);
     background-color: rgba(0, 0, 0, 0.5);
     border: 1px solid white;
     border-radius: 10px;
     opacity: 0;
     overflow: hidden;
-    transition: top .5s ease-in-out, opacity .5s ease-in-out;
+    transform: translateY(100vh);
+    transition: transform .5s ease-in-out, opacity .5s ease-in-out;
 }
 
 .inventory.active {
-    top: calc(50% - 70% * 0.5);
     opacity: 1;
+    transform: translate(0%);
 }
 
 .inventory .header {
@@ -254,7 +255,8 @@ ul, ol {
     width: calc(100% / 9);
     height: 2px;
     position: absolute;
-    transition: left .2s ease-in-out;
+    transform: translate(0%);
+    transition: transform .2s ease-in-out;
 }
 
 .inventory-grid {

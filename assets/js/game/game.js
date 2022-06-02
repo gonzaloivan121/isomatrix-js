@@ -98,7 +98,7 @@ function set_selector(selector) {
     var selector_line = document.getElementById("selector-line");
     active_selector.classList.remove("active");
     selector.classList.add("active");
-    selector_line.style.left = "calc(100% / 9 * " + selector.dataset.id + ")";
+    selector_line.style.transform = "translate(" + 100 * selector.dataset.id + "%)";
 }
 
 function generate_enemies() {
