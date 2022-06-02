@@ -68,7 +68,7 @@ function listen_to_selector_click() {
             selector.dataset.id = i;
             selector.addEventListener("click", (ev) => {
                 if (!selector.classList.contains("deactivated") && !selector.classList.contains("active")) {
-                    set_selector(selector);
+                    set_selector(selector, type);
                 }
             });
             i++;
@@ -82,6 +82,8 @@ function listen_to_inventory_click() {
         inventory_item.addEventListener("click", (ev) => {
             if (ev.target.classList.contains("available") && !ev.target.classList.contains("selected")) {
                 set_inventory_selected(ev.target);
+            } else if (ev.target.classList.contains("available") && ev.target.classList.contains("selected")) {
+                ev.target.classList.remove("selected");
             }
         });
     }
@@ -89,16 +91,22 @@ function listen_to_inventory_click() {
 
 function set_inventory_selected(inventory_item) {
     var selected_inventory_item = document.getElementsByClassName("inventory-item selected")[0];
-    selected_inventory_item.classList.remove("selected");
+    if (selected_inventory_item !== undefined) {
+        selected_inventory_item.classList.remove("selected");
+    }
     inventory_item.classList.add("selected");
 }
 
-function set_selector(selector) {
+function set_selector(selector, type) {
     var active_selector = document.getElementsByClassName("selector-item active")[0];
     var selector_line = document.getElementById("selector-line");
+    var inventory_grid_holder = document.getElementById("inventory-grid-holder");
+    var selector_title = document.getElementById("selector-title");
     active_selector.classList.remove("active");
     selector.classList.add("active");
     selector_line.style.transform = "translate(" + 100 * selector.dataset.id + "%)";
+    inventory_grid_holder.style.transform = "translate(calc(-100% / 9 * " + selector.dataset.id + "))";
+    selector_title.innerText = ItemType.get_nice_name(type);
 }
 
 function generate_enemies() {
