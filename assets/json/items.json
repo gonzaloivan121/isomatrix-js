@@ -8,7 +8,16 @@
         "sell_value": 25,
         "can_stack": true,
         "max_stack_size": 64,
-        "image": "./assets/img/items/0.png"
+        "image": "./assets/img/items/0.png",
+        "stats": {
+            "max_health": 0,
+            "attack": 0,
+            "critical_chance": 0,
+            "critical_multiplier": 0,
+            "defence": 0,
+            "block_chance": 0,
+            "action_area": 0
+        }
     },
     {
         "id": 1,
@@ -19,6 +28,35 @@
         "sell_value": 25,
         "can_stack": false,
         "max_stack_size": 1,
-        "image": "./assets/img/items/0.png"
+        "image": "./assets/img/items/0.png",
+        "stats": {
+            "max_health": 0,
+            "attack": 10,
+            "critical_chance": 5,
+            "critical_multiplier": 0,
+            "defence": 0,
+            "block_chance": 0,
+            "action_area": 0
+        }
+    },
+    {
+        "id": 2,
+        "name": "Broken Shield",
+        "description": "This Shield might protect you... sometimes.",
+        "type": 2,
+        "buy_value": 50,
+        "sell_value": 25,
+        "can_stack": false,
+        "max_stack_size": 1,
+        "image": "./assets/img/items/0.png",
+        "stats": {
+            "max_health": 0,
+            "attack": 0,
+            "critical_chance": 0,
+            "critical_multiplier": 0,
+            "defence": 5,
+            "block_chance": -1,
+            "action_area": 0
+        }
     }
 ]

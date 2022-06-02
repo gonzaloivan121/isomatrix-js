@@ -45,7 +45,8 @@ function generate_items() {
                         item.sell_value,
                         item.can_stack,
                         item.max_stack_size,
-                        item.image
+                        item.image,
+                        item.stats
                     )
                 );
             }
