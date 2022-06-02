@@ -78,5 +78,45 @@
             "block_chance": 10,
             "action_area": 0
         }
+    },
+    {
+        "id": 4,
+        "name": "Uchigatana",
+        "description": "A katana with a long single-edged curved blade.",
+        "type": 1,
+        "buy_value": 500,
+        "sell_value": 250,
+        "can_stack": false,
+        "max_stack_size": 1,
+        "image": "./assets/img/items/0.png",
+        "stats": {
+            "max_health": 0,
+            "attack": 50,
+            "critical_chance": 15,
+            "critical_multiplier": 1,
+            "defence": 0,
+            "block_chance": 0,
+            "action_area": 0
+        }
+    },
+    {
+        "id": 5,
+        "name": "AK-47",
+        "description": "The AK-47 is a Russian assault rifle first used in 1949.",
+        "type": 1,
+        "buy_value": 500,
+        "sell_value": 250,
+        "can_stack": false,
+        "max_stack_size": 1,
+        "image": "./assets/img/items/0.png",
+        "stats": {
+            "max_health": 0,
+            "attack": 100,
+            "critical_chance": 20,
+            "critical_multiplier": 0,
+            "defence": 0,
+            "block_chance": 0,
+            "action_area": 10
+        }
     }
 ]
