@@ -61,14 +61,17 @@ listen_to_inventory_click();
 
 function listen_to_selector_click() {
     var types = ItemType.get_all_types();
+    var i = 0;
     types.forEach(type => {
         var selector = document.getElementById("selector-" + type);
         if (selector !== null) {
+            selector.dataset.id = i;
             selector.addEventListener("click", (ev) => {
                 if (!selector.classList.contains("deactivated") && !selector.classList.contains("active")) {
                     set_selector(selector);
                 }
             });
+            i++;
         }
     });
 }
@@ -92,8 +95,10 @@ function set_inventory_selected(inventory_item) {
 
 function set_selector(selector) {
     var active_selector = document.getElementsByClassName("selector-item active")[0];
+    var selector_line = document.getElementById("selector-line");
     active_selector.classList.remove("active");
     selector.classList.add("active");
+    selector_line.style.left = "calc(100% / 9 * " + selector.dataset.id + ")";
 }
 
 function generate_enemies() {
