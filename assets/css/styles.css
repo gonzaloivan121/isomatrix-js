@@ -116,7 +116,7 @@ ul, ol {
     bottom: 30px;
 }
 
-.inventory-button {
+.button {
     width: 100%;
     height: 100%;
     border-radius: 5px;
@@ -125,7 +125,7 @@ ul, ol {
     transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
 }
 
-.inventory-button:hover {
+.button:hover {
     transform: scale(1.1);
     -webkit-box-shadow: 0px 0px 10px 0px rgb(255 255 255 / 50%);
     box-shadow: 0px 0px 10px 0px rgb(255 255 255 / 50%);
@@ -138,10 +138,10 @@ ul, ol {
 
 .inventory {
     position: absolute;
-    width: 70%;
+    width: 60%;
     height: 70%;
     top: calc(50% - 70% * 0.5);
-    left: calc(50% - 70% * 0.5);
+    left: calc(50% - 60% * 0.5);
     background-color: rgba(0, 0, 0, 0.5);
     border: 1px solid white;
     border-radius: 10px;
@@ -170,6 +170,8 @@ ul, ol {
 
 .inventory .footer {
     height: 12.5%;
+    display: flex;
+    align-items: center;
 }
 
 .inventory .header,
@@ -198,6 +200,7 @@ ul, ol {
 .inventory-right {
     width: 50%;
     padding: 50px 0;
+    overflow: hidden;
 }
 
 /*.selector {
@@ -213,6 +216,8 @@ ul, ol {
     padding: 10px 50px;
     display: flex;
     justify-content: space-around;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 .selector-item {
@@ -223,12 +228,12 @@ ul, ol {
 .selector-item:hover {
     transform: scale(1.1);
     cursor: pointer;
-    filter: brightness(0.6);
+    filter: brightness(0.6) drop-shadow(0px 0px 10px rgb(0,0,0,0.5));
 }
 
 .selector-item.active {
     transform: scale(1.1);
-    filter: brightness(1);
+    filter: brightness(1) drop-shadow(0px 0px 10px rgb(0,0,0,0.5));
     cursor: auto;
 }
 
@@ -239,6 +244,11 @@ ul, ol {
 .selector-item.deactivated:hover {
     transform: scale(1);
     cursor: auto;
+}
+
+.selector-item img {
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 .selector-underline {
@@ -256,7 +266,14 @@ ul, ol {
     height: 2px;
     position: absolute;
     transform: translate(0%);
-    transition: transform .2s ease-in-out;
+    transition: transform .25s ease-in-out;
+}
+
+.inventory-grid-holder {
+    display: flex;
+    width: 900%;
+    transform: translate(calc(-100% / 9 * 0));
+    transition: transform .25s ease-in-out;
 }
 
 .inventory-grid {
@@ -264,6 +281,7 @@ ul, ol {
     gap: 15px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     margin: 20px;
+    flex-basis: 100%;
 }
 
 .inventory-item {
@@ -271,6 +289,10 @@ ul, ol {
     background: rgb(110, 110, 110, 0.5);
     border: 2px solid rgb(255, 255, 255, 0.25);
     border-radius: 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     transition: border .2s ease-in-out,
                 background .2s ease-in-out,
@@ -313,6 +335,24 @@ ul, ol {
     left: calc(100% - 10px);
     border-left: 15px solid transparent;
     border-right: 0;
+}
+
+.inventory-item-img {
+    width: 80%;
+    height: 80%;
+}
+
+.footer-left, .footer-right {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.footer-right .button {
+    margin: 0 20px;
+    height: 50%;
 }
 
 @media only screen and (max-width: 768px) {
