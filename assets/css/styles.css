@@ -213,7 +213,7 @@ ul, ol {
 }
 
 .selector-list {
-    padding: 10px 50px;
+    padding: 10px 20px;
     display: flex;
     justify-content: space-around;
     user-select: none;
@@ -252,9 +252,9 @@ ul, ol {
 }
 
 .selector-underline {
-    width: calc(100% - 100px);
+    width: calc(100% - 40px);
     height: 2px;
-    background: rgb(255 255 255 / 25%);
+    background: rgb(255, 255, 255, 0.25);
     margin: 0 auto;
     border: 0px;
     position: relative;
@@ -368,9 +368,70 @@ ul, ol {
         width: calc(100% - 60px);
     }
 
+    .stat {
+        display: none;
+    }
+
     .buttons {
         width: 100%;
         height: 5vh;
         position: unset;
+    }
+
+    .inventory {
+        width: 90%;
+        height: 80%;
+        left: calc(50% - 90% * 0.5);
+        top: calc(50% - 80% * 0.5);
+    }
+
+    .inventory .header,
+    .inventory .container,
+    .inventory .footer {
+        padding: 0 25px;
+    }
+
+    .inventory .header {
+        height: calc(10% - 2px);
+    }
+
+    .inventory .container {
+        height: calc(77.5% - 2px);
+        display: block;
+    }
+
+    .inventory-left, .inventory-right {
+        width: 100%;
+        padding: 25px 0;
+        height: calc(100% - 50px);
+    }
+
+    .selector-list {
+        padding: 10px 0px;
+    }
+
+    .selector-underline {
+        width: 100%;
+    }
+
+    .inventory-grid-holder {
+        margin-top: 15px;
+    }
+
+    .inventory-grid {
+        margin: 5px;
+    }
+
+    .footer-left {
+        width: 0%;
+    }
+
+    .footer-right {
+        width: 100%;
+    }
+
+    .footer-right .button {
+        margin: 0 10px;
+        height: 40%;
     }
 }
