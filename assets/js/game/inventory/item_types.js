@@ -36,7 +36,14 @@ class ItemType {
     static currency = 4;
     static miscellaneous = 5;
 
-    static get_type(value) {
+    /**
+     * Returns the type name from a given value.
+     * 
+     * @param {Number} value - The value to check
+     * @returns {String|boolean} If the type exists, the type name. If not, false
+     */
+    static get_type(value = null) {
+        if (value === null) return;
         var name = false;
         for (const type in this) {
             if (this[type] === value) {
@@ -46,6 +53,11 @@ class ItemType {
         return name;
     }
 
+    /**
+     * Returns an array of all the type names.
+     * 
+     * @returns {String[]} An array of all the type names
+     */
     static get_all_types() {
         var names = [];
         for (const type in this) {
@@ -54,7 +66,14 @@ class ItemType {
         return names;
     }
 
-    static get_type_with_nice_names(value) {
+    /**
+     * Returns the type name well written from a given value.
+     * 
+     * @param {Number} value - The value to check
+     * @returns {String|boolean} If the type exists, the type name well written. If not, false
+     */
+    static get_type_with_nice_names(value = null) {
+        if (value === null) return;
         var name = false;
         for (const type in this) {
             if (this[type] === value) {
@@ -64,7 +83,14 @@ class ItemType {
         return name;
     }
 
-    static get_nice_name(type) {
+    /**
+     * Returns the type name well written from a type name.
+     * 
+     * @param {String} type - The type name
+     * @returns {String|boolean} If the type exists, the type name well written. If not, false
+     */
+    static get_nice_name(type = null) {
+        if (type === null) return;
         var name = false;
         switch (type) {
             case "equipment":

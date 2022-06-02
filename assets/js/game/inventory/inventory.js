@@ -1,11 +1,22 @@
 class Inventory {
     stacks = [];
 
+    /**
+     * Inventory system
+     * 
+     * @param {Number} max_stacks - The maximum ammount of Items that the Inventory can hold
+     */
     constructor(max_stacks = 15) {
         this.max_stacks = max_stacks;
     }
 
-    add_item_to_stack(item) {
+    /**
+     * Adds an Item to it's stack. If the stack doesn't exist, it creates one.
+     * 
+     * @param {Item} item - The Item to be added to the Stack
+     */
+    add_item_to_stack(item = null) {
+        if (item === null) return;
         if (this.stacks.length > 0) {
             this.stacks.forEach(stack => {
                 if (stack.item.id === item.id) {
@@ -21,7 +32,15 @@ class Inventory {
         }
     }
 
-    remove_item_from_stack(item) {
+    /**
+     * Removes an Item from it's stack if the stack exists.
+     * If the Item's quantity is higher than 1, it reduces
+     * the quantity of the Item. If not, it deletes the stack.
+     * 
+     * @param {Item} item - The Item to be added to the Stack
+     */
+    remove_item_from_stack(item = null) {
+        if (item === null) return;
         if (!this.stacks.length > 0) {
             return;
         } else {
