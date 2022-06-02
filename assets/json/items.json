@@ -58,5 +58,25 @@
             "block_chance": -1,
             "action_area": 0
         }
+    },
+    {
+        "id": 3,
+        "name": "Best Shield Ever",
+        "description": "This is the best Shield that has ever been made.",
+        "type": 2,
+        "buy_value": 500,
+        "sell_value": 250,
+        "can_stack": false,
+        "max_stack_size": 1,
+        "image": "./assets/img/items/0.png",
+        "stats": {
+            "max_health": 0,
+            "attack": 0,
+            "critical_chance": 0,
+            "critical_multiplier": 0,
+            "defence": 25,
+            "block_chance": 10,
+            "action_area": 0
+        }
     }
 ]

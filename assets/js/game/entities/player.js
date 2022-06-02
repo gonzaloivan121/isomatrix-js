@@ -28,12 +28,10 @@ class Player extends Entity {
     equip_item(item = null) {
         if (item === null) return;
         var type = ItemType.get_type(item.type);
-        if (this.equipment[type] === null) {
-            this.equipment[type] = item;
-        } else {
-            this.inventory.add_item_to_stack(this.equipment[type]);
-            this.equipment[type] = item;
+        if (this.equipment[type] !== null) {
+            this.unequip_item(this.equipment[type]);
         }
+        this.equipment[type] = item;
         this.update_stats(item, true);
     }
     
