@@ -254,6 +254,7 @@ ul, ol {
     width: calc(100% / 9);
     height: 2px;
     position: absolute;
+    transition: left .2s ease-in-out;
 }
 
 .inventory-grid {
