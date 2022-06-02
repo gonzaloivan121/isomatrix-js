@@ -21,19 +21,17 @@ class ItemType {
     - Raciones
     - Moneda
     */
-    // Equipment Section
-    static equipment = 0;
-    static helmet = 0.1;
-    static gauntlet = 0.2;
-    static chest_armour = 0.3;
-    static leg_armour = 0.4;
-    static boots = 0.5;
-    static ring = 0.6;
-    static pendant = 0.7;
-
-    // Weapon Section
     static weapon = 1;
     static shield = 2;
+    static gauntlet = 0.1;
+    static ring = 0.2;
+    static helmet = 0.3;
+    static chest_armour = 0.4;
+    static leg_armour = 0.5;
+    static boots = 0.6;
+    static pendant = 0.7;
+
+    static equipment = 0;
     static power_ups = 3;
     static currency = 4;
     static miscellaneous = 5;
