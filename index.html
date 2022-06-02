@@ -47,7 +47,7 @@
                 <!-- Insert stats via script -->
             </div>
             <div class="buttons">
-                <button class="inventory-button box-shadow" onclick="toogle_inventory()">Inventory</button>
+                <button class="button box-shadow" onclick="toogle_inventory()">Inventory</button>
             </div>
         </div>
 
@@ -74,7 +74,7 @@
             <div class="container">
                 <div class="inventory-left">
                     <div class="selector">
-                        <div class="selector-title">Lorem Ipsum</div>
+                        <div class="selector-title" id="selector-title">Weapon</div>
                         <ul class="selector-list">
                             <li class="selector-item active" id="selector-weapon" data-id=""><img src="./assets/img/icons/weapon.png" width="32"></li>
                             <li class="selector-item" id="selector-shield" data-id=""><img src="./assets/img/icons/shield.png" width="32"></li>
@@ -90,30 +90,178 @@
                             <div class="selector-line" id="selector-line"></div>
                         </div>
                     </div>
-                    <div class="inventory-grid">
-                        <div class="inventory-item available selected"></div>
-                        <div class="inventory-item available"></div>
-                        <div class="inventory-item available"></div>
-                        <div class="inventory-item available"></div>
-                        <div class="inventory-item available"></div>
-                        <div class="inventory-item available"></div>
-                        <div class="inventory-item"></div>
-                        <div class="inventory-item"></div>
-                        <div class="inventory-item"></div>
-                        <div class="inventory-item"></div>
-                        <div class="inventory-item"></div>
-                        <div class="inventory-item"></div>
-                        <div class="inventory-item"></div>
-                        <div class="inventory-item"></div>
-                        <div class="inventory-item"></div>
+                    <div class="inventory-grid-holder" id="inventory-grid-holder">
+                        <div class="inventory-grid" data-type="weapon">
+                            <div class="inventory-item available">
+                                <!--<div class="inventory-item-img" style="background-image: url(./assets/img/items/0.png)"></div>-->
+                            </div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                        </div>
+                        <div class="inventory-grid" data-type="shield">
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                        </div>
+                        <div class="inventory-grid" data-type="gauntlet">
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                        </div>
+                        <div class="inventory-grid" data-type="ring">
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                        </div>
+                        <div class="inventory-grid" data-type="helmet">
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                        </div>
+                        <div class="inventory-grid" data-type="chest_armour">
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                        </div>
+                        <div class="inventory-grid" data-type="leg_armour">
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                        </div>
+                        <div class="inventory-grid" data-type="boots">
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                        </div>
+                        <div class="inventory-grid" data-type="pendant">
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item available"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                            <div class="inventory-item"></div>
+                        </div>
                     </div>
+                    
                 </div>
                 <div class="inventory-right">
                 
                 </div>
             </div>
             <div class="footer">
-            
+                <div class="footer-left">
+                    <button class="button box-shadow" onclick="toogle_inventory()" style="display: none;">Inventory</button>
+                </div>
+                <div class="footer-right">
+                    <button class="button box-shadow" onclick="toogle_inventory()">Drop</button>
+                    <button class="button box-shadow" onclick="toogle_inventory()">Equip</button>
+                    <button class="button box-shadow" onclick="toogle_inventory()">Close</button>
+                </div>
             </div>
         </div>
         <!-- END INVENTORY -->
