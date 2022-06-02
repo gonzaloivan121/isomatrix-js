@@ -13,6 +13,12 @@ class Player extends Entity {
         pendant: null
     }
 
+    /**
+     * 
+     * @param {Number} x - Player's x position
+     * @param {Number} y - Player's y position
+     * @param {Stats} stats - Player's stats
+     */
     constructor(x, y, stats = new Stats()) {
         super(x, y, "./assets/img/entities/player.png");
         this.stats = stats;
