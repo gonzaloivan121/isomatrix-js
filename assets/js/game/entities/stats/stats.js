@@ -11,14 +11,18 @@ class Stats {
     defence = 1;
     block_chance = 5;
     action_area = 1;
+    movement_area = 1;
+    attack_area = 1;
 
-    constructor(attack = 1, defence = 1, critical_chance = 5, critical_multiplier = 2, block_chance = 5, action_area = 1) {
+    constructor(attack = 1, defence = 1, critical_chance = 5, critical_multiplier = 2, block_chance = 5, action_area = 1, movement_area = 1, attack_area = 1) {
         this.attack = attack;
         this.defence = defence;
         this.critical_chance = critical_chance;
         this.critical_multiplier = critical_multiplier;
         this.block_chance = block_chance;
         this.action_area = action_area;
+        this.movement_area = movement_area;
+        this.attack_area = attack_area;
     }
 
     level_up() {

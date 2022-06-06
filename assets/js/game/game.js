@@ -18,7 +18,9 @@ var player = new Player(0.5, 0.5, new Stats(
     10, // Critical Chance
     2,  // Critical Multiplier
     5,  // Block Chance
-    1   // Action Area
+    1,  // Action Area
+    1,  // Movement Area
+    1   // Attack Area
 ));
 player.has_turn = true;
 
@@ -122,7 +124,9 @@ function generate_enemies() {
                     Utilities.random(1, 10), // Critical Chance
                     Utilities.random(1, 3),  // Critical Multiplier
                     Utilities.random(1, 10), // Block Chance
-                    Utilities.random(1, 3)   // Action Area
+                    Utilities.random(1, 3),  // Action Area
+                    Utilities.random(1, 3),  // Movement Area
+                    Utilities.random(1, 3)   // Attack Area
                 )
             )
         );
@@ -223,10 +227,10 @@ function check_action_area(x, y) {
     }
 
     if (
-        x - 1.5 <= player.position.x + player.stats.action_area &&
-        y - 1.5 <= player.position.y + player.stats.action_area &&
-        x - 0.5 > player.position.x - player.stats.action_area &&
-        y - 0.5 > player.position.y - player.stats.action_area
+        x - 1.5 <= player.position.x + player.stats.attack_area &&
+        y - 1.5 <= player.position.y + player.stats.attack_area &&
+        x - 0.5 > player.position.x - player.stats.attack_area &&
+        y - 0.5 > player.position.y - player.stats.attack_area
     ) {
         if (enemy.position.x === x - 1.5 && enemy.position.y === y - 1.5 && enemy.alive) {
             var attack_result = player.fight(enemy);
@@ -236,7 +240,16 @@ function check_action_area(x, y) {
                 update_health_bar("enemy", attack_result);
                 update_experience_bar(player.stats);
             }
-        } else {
+        }
+    }
+    
+    if (
+        x - 1.5 <= player.position.x + player.stats.movement_area &&
+        y - 1.5 <= player.position.y + player.stats.movement_area &&
+        x - 0.5 > player.position.x - player.stats.movement_area &&
+        y - 0.5 > player.position.y - player.stats.movement_area
+    ) {
+        if (!(enemy.position.x === x - 1.5 && enemy.position.y === y - 1.5 && enemy.alive)) {
             player.move_to(x - 1.5, y - 1.5);
         }
     }

@@ -16,7 +16,8 @@
             "critical_multiplier": 0,
             "defence": 0,
             "block_chance": 0,
-            "action_area": 0
+            "movement_area": 0,
+            "attack_area": 0
         }
     },
     {
@@ -36,7 +37,8 @@
             "critical_multiplier": 0,
             "defence": 0,
             "block_chance": 0,
-            "action_area": 0
+            "movement_area": 0,
+            "attack_area": 0
         }
     },
     {
@@ -56,7 +58,8 @@
             "critical_multiplier": 0,
             "defence": 5,
             "block_chance": -1,
-            "action_area": 0
+            "movement_area": 0,
+            "attack_area": 0
         }
     },
     {
@@ -76,7 +79,8 @@
             "critical_multiplier": 0,
             "defence": 25,
             "block_chance": 10,
-            "action_area": 0
+            "movement_area": 0,
+            "attack_area": 0
         }
     },
     {
@@ -96,7 +100,8 @@
             "critical_multiplier": 1,
             "defence": 0,
             "block_chance": 0,
-            "action_area": 0
+            "movement_area": 0,
+            "attack_area": 0
         }
     },
     {
@@ -116,7 +121,8 @@
             "critical_multiplier": 0,
             "defence": 0,
             "block_chance": 0,
-            "action_area": 10
+            "movement_area": 0,
+            "attack_area": 10
         }
     }
 ]
