@@ -75,4 +75,24 @@ class Player extends Entity {
             }
         }
     }
+
+    /**
+     * Adds an Item to the Player's Inventory
+     * 
+     * @param {Item} item - The item to be added to the Inventory
+     */
+    add_item_to_inventory(item = null) {
+        if (item === null) return;
+        inventory.add_item_to_stack(item);
+    }
+
+    /**
+     * Removees an Item from the Player's Inventory
+     * 
+     * @param {Item} item - The item to be removed from the Inventory
+     */
+    remove_item_from_inventory(item = null) {
+        if (item === null) return;
+        inventory.remove_item_from_stack(item);
+    }
 }
