@@ -110,6 +110,70 @@ function set_selector(selector, type) {
     selector_line.style.transform = "translate(" + 100 * selector.dataset.id + "%)";
     inventory_grid_holder.style.transform = "translate(calc(-100% / 9 * " + selector.dataset.id + "))";
     selector_title.innerText = ItemType.get_nice_name(type);
+    if (selector_title.innerText !== "Boots") {
+        selector_title.innerText += "s";
+    }
+}
+
+function get_selected_item() {
+    var selected_inventory_item = document.getElementsByClassName("inventory-item selected")[0];
+    if (selected_inventory_item === undefined) return;
+    var item_id = parseInt(selected_inventory_item.dataset.itemId);
+
+    for (var i = 0; i < items.length; i++) {
+        if (items[i].id === item_id) {
+            return items[i];
+        }
+    }
+
+    return null;
+}
+
+function show_drop_confirmation() {
+    show_confirmation_dialbox(
+        "Do you really want to drop this item?",
+        "Drop",
+        "Don't drop",
+        () => {
+            var item = get_selected_item();
+            player.inventory.remove_item_from_stack(item);
+        }
+    )
+}
+
+function show_confirmation_dialbox(
+    title = "Do you want to confirm this?",
+    confirm_text = "Yes",
+    decline_text = "No",
+    action = () => {}
+) {
+    var confirmation_dialbox = document.getElementById("confirmation-dialbox");
+    var confirmation_confirm = document.getElementById("confirmation-confirm");
+    var confirmation_decline = document.getElementById("confirmation-decline");
+    var confirmation_title   = document.getElementById("confirmation-title");
+
+    confirmation_dialbox.classList.add("active");
+    confirmation_title.innerText = title;
+    confirmation_confirm.innerText = confirm_text;
+    confirmation_decline.innerText = decline_text;
+
+    confirmation_confirm.onclick = action;
+}
+
+function hide_confirmation_dialbox() {
+    var confirmation_dialbox = document.getElementById("confirmation-dialbox");
+    var confirmation_confirm = document.getElementById("confirmation-confirm");
+    var confirmation_decline = document.getElementById("confirmation-decline");
+    var confirmation_title   = document.getElementById("confirmation-title");
+
+    confirmation_dialbox.classList.remove("active");
+
+    setTimeout(() => {
+        confirmation_title.innerText = "";
+        confirmation_confirm.innerText = "";
+        confirmation_decline.innerText = "";
+        confirmation_confirm.onclick = null;
+    }, 500);
 }
 
 function generate_enemies() {
