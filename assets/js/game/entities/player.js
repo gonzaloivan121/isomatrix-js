@@ -37,6 +37,7 @@ class Player extends Entity {
         if (this.equipment[type] !== null) {
             this.unequip_item(this.equipment[type]);
         }
+        this.remove_item_from_inventory(item);
         this.equipment[type] = item;
         this.update_stats(item, true);
     }
@@ -51,7 +52,7 @@ class Player extends Entity {
         if (item === null) return;
         var type = ItemType.get_type(item.type);
         if (this.equipment[type] !== null) {
-            this.inventory.add_item_to_stack(this.equipment[type]);
+            this.add_item_to_inventory(this.equipment[type]);
             this.equipment[type] = null;
             this.update_stats(item, false);
         }
