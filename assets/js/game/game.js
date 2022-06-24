@@ -130,13 +130,16 @@ function get_selected_item() {
 }
 
 function show_drop_confirmation() {
+    var item = get_selected_item();
+    if (item === undefined || item === null) return;
     show_confirmation_dialbox(
         "Do you really want to drop this item?",
         "Drop",
         "Don't drop",
         () => {
-            var item = get_selected_item();
-            player.inventory.remove_item_from_stack(item);
+            createToast(item.name + " has been dropped", TOAST_TYPE.INFO);
+            player.remove_item_from_inventory(item);
+            hide_confirmation_dialbox();
         }
     )
 }
