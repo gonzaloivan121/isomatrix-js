@@ -129,6 +129,20 @@ function get_selected_item() {
     return null;
 }
 
+function equip_selected_item() {
+    var item = get_selected_item();
+    if (item === undefined || item === null) return;
+    player.equip_item(item);
+    createToast('The "' + item.name + '" has been equipped', TOAST_TYPE.INFO);
+}
+
+function unequip_selected_item() {
+    var item = get_selected_item();
+    if (item === undefined || item === null) return;
+    player.unequip_item(item);
+    createToast('The "' + item.name + '" has been unequipped', TOAST_TYPE.INFO);
+}
+
 function show_drop_confirmation() {
     var item = get_selected_item();
     if (item === undefined || item === null) return;
@@ -137,7 +151,7 @@ function show_drop_confirmation() {
         "Drop",
         "Don't drop",
         () => {
-            createToast(item.name + " has been dropped", TOAST_TYPE.INFO);
+            createToast('The "' + item.name + '" has been dropped', TOAST_TYPE.INFO);
             player.remove_item_from_inventory(item);
             hide_confirmation_dialbox();
         }
