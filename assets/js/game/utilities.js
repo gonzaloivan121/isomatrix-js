@@ -71,4 +71,44 @@ class Utilities {
         }
         xobj.send(null);
     }
+
+    /**
+     * https://github.com/Miziziziz/GodotBreadthFirstSearch/blob/master/BaseCode.gd
+     * 
+     * @param {Vector} start 
+     * @param {Vector} goal 
+     * @param {Number} max_iterations - Maximum numbers of iterations so the algorithm won't run forever
+     */
+    static a_star(start, goal, max_iterations = 1000) {
+        var position = new Vector(start.x, start.y);
+        var iterations = 0;
+        var queue = [];
+        var visited = {};
+
+        queue.push({
+            pos: start,
+            last_pos: null
+        });
+
+        while (queue.length > 0) {
+            var cell_info = queue.shift();
+
+        }
+
+
+
+
+        do {
+            console.log(iterations)
+            iterations++;
+        } while (!(position.x === goal.x && position.y === goal.y) && iterations < max_iterations);
+    }
+
+    static check_cell(curr_pos, last_pos, goal_pos, visited) {
+        if (visited.some(pos => pos.x === curr_pos.x && pos.y === curr_pos.y)) {
+            return false;
+        }
+
+        visited
+    }
 }

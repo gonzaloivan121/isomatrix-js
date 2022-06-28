@@ -10,4 +10,10 @@ class Enemy extends Entity {
     set_experience(experience) {
         this.experience_to_give = experience;
     }
+
+    check_turn(entity) {
+        if (this.has_turn && this.is_alive) {
+            
+        }
+    }
 }
