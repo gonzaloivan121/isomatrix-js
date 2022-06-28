@@ -313,7 +313,7 @@ function check_action_area(x, y) {
         x - 0.5 > player.position.x - player.stats.attack_area &&
         y - 0.5 > player.position.y - player.stats.attack_area
     ) {
-        if (enemy.position.x === x - 1.5 && enemy.position.y === y - 1.5 && enemy.alive) {
+        if (enemy.position.x === x - 1.5 && enemy.position.y === y - 1.5 && enemy.is_alive) {
             var attack_result = player.fight(enemy);
             if (!attack_result) {
                 alert("Attack blocked!");
@@ -330,7 +330,7 @@ function check_action_area(x, y) {
         x - 0.5 > player.position.x - player.stats.movement_area &&
         y - 0.5 > player.position.y - player.stats.movement_area
     ) {
-        if (!(enemy.position.x === x - 1.5 && enemy.position.y === y - 1.5 && enemy.alive)) {
+        if (!(enemy.position.x === x - 1.5 && enemy.position.y === y - 1.5 && enemy.is_alive)) {
             player.move_to(x - 1.5, y - 1.5);
         }
     }
@@ -407,7 +407,7 @@ function start_interval(time) {
         draw_background();
         update_tiles();
         update_enemies();
-        if (player.alive) {
+        if (player.is_alive) {
             update_player();
         }
         update_ui();
@@ -464,7 +464,7 @@ function update_player() {
 function update_enemies() {
     if (enemies.length !== 0) {
         for (var i = 0; i < enemies.length; i++) {
-            if (enemies[i].alive) {
+            if (enemies[i].is_alive) {
                 enemies[i].update();
             }
         }
