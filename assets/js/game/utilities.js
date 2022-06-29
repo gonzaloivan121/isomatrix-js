@@ -75,40 +75,96 @@ class Utilities {
     /**
      * https://github.com/Miziziziz/GodotBreadthFirstSearch/blob/master/BaseCode.gd
      * 
-     * @param {Vector} start 
-     * @param {Vector} goal 
+     * @param {Vector} start_pos - Starting position for the algorithm
+     * @param {Vector} goal_pos - Goal position for the algorithm
      * @param {Number} max_iterations - Maximum numbers of iterations so the algorithm won't run forever
      */
-    static a_star(start, goal, max_iterations = 1000) {
-        var position = new Vector(start.x, start.y);
-        var iterations = 0;
+    static breadth_first_search(start_pos, goal_pos, max_iterations = 1000) {
         var queue = [];
-        var visited = {};
+        var visited = [];
 
         queue.push({
-            pos: start,
+            pos: start_pos,
             last_pos: null
         });
+
+        var iterations = 0;
 
         while (queue.length > 0) {
             var cell_info = queue.shift();
 
+            if (this.check_cell(cell_info.pos, cell_info.last_pos, goal_pos, visited, queue)) {
+                break;
+            }
+
+            iterations++;
+
+            if (iterations >= max_iterations) {
+                return [];
+            }
         }
 
+        var backtraced_path = [];
+        var curr_pos = new Vector(goal_pos.x, goal_pos.y);
 
+        var i = visited.findIndex(pos => pos.x === curr_pos.x && pos.y === curr_pos.y);
+        var is_visited = visited.some(pos => pos.x === curr_pos.x && pos.y === curr_pos.y);
 
+        while (is_visited && (visited[i] !== null || visited[i] !== undefined)) {
+            if (curr_pos !== null || curr_pos !== undefined) {
+                backtraced_path.push(new Vector(curr_pos.x, curr_pos.y));
+            }
+            curr_pos = new Vector(visited[i].x, visited[i].y);
+            i = visited.findIndex(pos => pos.x === curr_pos.x && pos.y === curr_pos.y);
+            is_visited = visited.some(pos => pos.x === curr_pos.x && pos.y === curr_pos.y);
+        }
 
-        do {
-            console.log(iterations)
-            iterations++;
-        } while (!(position.x === goal.x && position.y === goal.y) && iterations < max_iterations);
+        backtraced_path = backtraced_path.reverse();
+
+        return backtraced_path;
     }
 
-    static check_cell(curr_pos, last_pos, goal_pos, visited) {
+    /**
+     * 
+     * @param {*} curr_pos 
+     * @param {*} last_pos 
+     * @param {*} goal_pos 
+     * @param {*} visited 
+     * @param {*} queue 
+     * @returns 
+     */
+    static check_cell(curr_pos, last_pos, goal_pos, visited, queue) {
         if (visited.some(pos => pos.x === curr_pos.x && pos.y === curr_pos.y)) {
             return false;
         }
 
-        visited
+        if (last_pos !== null) {
+            visited.push(new Vector(last_pos.x, last_pos.y));
+        }
+
+        console.log(curr_pos)
+
+        if (curr_pos.x === goal_pos.x && curr_pos.y === goal_pos.y) {
+            return true;
+        }
+
+        queue.push({
+            pos: new Vector(curr_pos.x, curr_pos.y + 1),
+            last_pos: new Vector(curr_pos.x, curr_pos.y)
+        });
+        queue.push({
+            pos: new Vector(curr_pos.x + 1, curr_pos.y),
+            last_pos: new Vector(curr_pos.x, curr_pos.y)
+        });
+        queue.push({
+            pos: new Vector(curr_pos.x, curr_pos.y - 1),
+            last_pos: new Vector(curr_pos.x, curr_pos.y)
+        });
+        queue.push({
+            pos: new Vector(curr_pos.x - 1, curr_pos.y),
+            last_pos: new Vector(curr_pos.x, curr_pos.y)
+        });
+
+        return false;
     }
 }
