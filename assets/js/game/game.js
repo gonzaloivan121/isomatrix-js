@@ -52,11 +52,13 @@ function generate_items() {
                     )
                 );
             }
-            
         } catch (e) {
             console.error(e);
         }
-    })
+    },
+    (error) => {
+        console.log(error)
+    });
 }
 
 listen_to_selector_click();

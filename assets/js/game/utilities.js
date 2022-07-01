@@ -57,7 +57,7 @@ class Utilities {
      * @param {String} path - The path of the json to be loaded
      * @param {Function} callback - The function to be called once the JSON is loaded
      */
-    static load_json(path = null, callback) {
+    static load_json(path = null, callback, callback_error = () => {}) {
         if (path === null) return;
 
         var xobj = new XMLHttpRequest();
@@ -68,6 +68,9 @@ class Utilities {
                 // .open will NOT return a value but simply returns undefined in async mode so use a callback
                 callback(xobj.responseText);
             }
+        }
+        xobj.onerror = function () {
+            callback_error("Ha ocurrido un error.");
         }
         xobj.send(null);
     }
