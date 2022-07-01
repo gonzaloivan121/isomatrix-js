@@ -18,17 +18,27 @@ class Inventory {
     add_item_to_stack(item = null) {
         if (item === null) return;
         if (this.stacks.length > 0) {
-            this.stacks.forEach(stack => {
+            for (var i = 0; i < this.stacks.length; i++) {
+                const stack = this.stacks[i];
                 if (stack.item.id === item.id) {
-                    if (item.can_stack) {
+                    // TODO: fix inventory aggregation when stack size exceed its maximum
+                    if (item.can_stack && stack.quantity < item.max_stack_size) {
                         stack.increase_quantity();
                     } else {
-                        this.stacks.push(new Stack(item, 1));
+                        if (this.stacks.length < this.max_stacks) {
+                            this.stacks.push(new Stack(item, 1));
+                        } else {
+                            return { status: false, message: "Inventory can't hold more than " + this.max_stacks + " items." };
+                        }
                     }
                 }
-            })
+            }
         } else {
-            this.stacks.push(new Stack(item, 1));
+            if (this.stacks.length < this.max_stacks) {
+                this.stacks.push(new Stack(item, 1));
+            } else {
+                return { status: false, message: "Inventory can't hold more than " + this.max_stacks + " items." };
+            }
         }
     }
 
@@ -42,8 +52,9 @@ class Inventory {
     remove_item_from_stack(item = null) {
         if (item === null) return;
         if (!this.stacks.length > 0) {
-            return;
+            return null;
         } else {
+            var result = false;
             for (var i = 0; i < this.stacks.length; i++) {
                 const stack = this.stacks[i];
                 if (stack.item.id === item.id) {
@@ -52,8 +63,10 @@ class Inventory {
                     } else {
                         this.stacks.splice(i, 1);
                     }
+                    result = true;
                 }
             }
+            return result;
         }
     }
 }
