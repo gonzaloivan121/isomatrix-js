@@ -84,7 +84,7 @@ class Player extends Entity {
      */
     add_item_to_inventory(item = null) {
         if (item === null) return;
-        this.inventory.add_item_to_stack(item);
+        return this.inventory.add_item_to_stack(item);
     }
 
     /**
@@ -94,6 +94,6 @@ class Player extends Entity {
      */
     remove_item_from_inventory(item = null) {
         if (item === null) return;
-        this.inventory.remove_item_from_stack(item);
+        return this.inventory.remove_item_from_stack(item);
     }
 }

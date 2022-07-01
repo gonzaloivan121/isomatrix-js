@@ -149,13 +149,30 @@ function show_drop_confirmation() {
     var item = get_selected_item();
     if (item === undefined || item === null) return;
     show_confirmation_dialbox(
-        "Do you really want to drop this item?",
+        "Do you really want to drop this item?<br><strong>The \"" + item.name + "\"</strong>",
         "Drop",
         "Don't drop",
+        item.can_stack,
         () => {
-            createToast('The "' + item.name + '" has been dropped', TOAST_TYPE.INFO);
-            player.remove_item_from_inventory(item);
+            var result = player.remove_item_from_inventory(item);
+            if (result === true) {
+                createToast('The "' + item.name + '" has been dropped', TOAST_TYPE.INFO);
+            } else {
+                createToast('The "' + item.name + '" could not be dropped', TOAST_TYPE.ERROR);
+            }
             hide_confirmation_dialbox();
+        }
+    )
+}
+
+function show_joke_confirmation() {
+    show_confirmation_dialbox(
+        "¿Me quieres? :'(",
+        "Por supuesto",
+        "No, eres gorda",
+        false,
+        () => {
+            createToast("¡Yo también te quiero!", TOAST_TYPE.SUCCESS)
         }
     )
 }
@@ -164,6 +181,7 @@ function show_confirmation_dialbox(
     title = "Do you want to confirm this?",
     confirm_text = "Yes",
     decline_text = "No",
+    show_quantity = false,
     action = () => {}
 ) {
     var confirmation_dialbox = document.getElementById("confirmation-dialbox");
@@ -172,7 +190,7 @@ function show_confirmation_dialbox(
     var confirmation_title   = document.getElementById("confirmation-title");
 
     confirmation_dialbox.classList.add("active");
-    confirmation_title.innerText = title;
+    confirmation_title.innerHTML = title;
     confirmation_confirm.innerText = confirm_text;
     confirmation_decline.innerText = decline_text;
 
