@@ -1,5 +1,5 @@
 class Entity extends Tile {
-    alive = true;
+    is_alive = true;
     has_turn = false;
 
     constructor(x, y, image_src, stats = new Stats()) {
@@ -28,12 +28,12 @@ class Entity extends Tile {
     }
 
     die() {
-        this.alive = false;
+        this.is_alive = false;
     }
 
     revive(random_position = false) {
-        if (!this.alive && this.stats.health === 0) {
-            this.alive = true;
+        if (!this.is_alive && this.stats.health === 0) {
+            this.is_alive = true;
             this.stats.increase_health(this.stats.max_health);
             if (random_position) {
                 this.position.x = Utilities.random(-1, grid_size - 2) - 0.5;

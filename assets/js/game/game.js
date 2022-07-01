@@ -112,6 +112,87 @@ function set_selector(selector, type) {
     selector_line.style.transform = "translate(" + 100 * selector.dataset.id + "%)";
     inventory_grid_holder.style.transform = "translate(calc(-100% / 9 * " + selector.dataset.id + "))";
     selector_title.innerText = ItemType.get_nice_name(type);
+    if (selector_title.innerText !== "Boots") {
+        selector_title.innerText += "s";
+    }
+}
+
+function get_selected_item() {
+    var selected_inventory_item = document.getElementsByClassName("inventory-item selected")[0];
+    if (selected_inventory_item === undefined) return;
+    var item_id = parseInt(selected_inventory_item.dataset.itemId);
+
+    for (var i = 0; i < items.length; i++) {
+        if (items[i].id === item_id) {
+            return items[i];
+        }
+    }
+
+    return null;
+}
+
+function equip_selected_item() {
+    var item = get_selected_item();
+    if (item === undefined || item === null) return;
+    player.equip_item(item);
+    createToast('The "' + item.name + '" has been equipped', TOAST_TYPE.INFO);
+}
+
+function unequip_selected_item() {
+    var item = get_selected_item();
+    if (item === undefined || item === null) return;
+    player.unequip_item(item);
+    createToast('The "' + item.name + '" has been unequipped', TOAST_TYPE.INFO);
+}
+
+function show_drop_confirmation() {
+    var item = get_selected_item();
+    if (item === undefined || item === null) return;
+    show_confirmation_dialbox(
+        "Do you really want to drop this item?",
+        "Drop",
+        "Don't drop",
+        () => {
+            createToast('The "' + item.name + '" has been dropped', TOAST_TYPE.INFO);
+            player.remove_item_from_inventory(item);
+            hide_confirmation_dialbox();
+        }
+    )
+}
+
+function show_confirmation_dialbox(
+    title = "Do you want to confirm this?",
+    confirm_text = "Yes",
+    decline_text = "No",
+    action = () => {}
+) {
+    var confirmation_dialbox = document.getElementById("confirmation-dialbox");
+    var confirmation_confirm = document.getElementById("confirmation-confirm");
+    var confirmation_decline = document.getElementById("confirmation-decline");
+    var confirmation_title   = document.getElementById("confirmation-title");
+
+    confirmation_dialbox.classList.add("active");
+    confirmation_title.innerText = title;
+    confirmation_confirm.innerText = confirm_text;
+    confirmation_decline.innerText = decline_text;
+
+    confirmation_confirm.onclick = action;
+}
+
+function hide_confirmation_dialbox() {
+    var confirmation_dialbox = document.getElementById("confirmation-dialbox");
+    var confirmation_confirm = document.getElementById("confirmation-confirm");
+    var confirmation_decline = document.getElementById("confirmation-decline");
+    var confirmation_title   = document.getElementById("confirmation-title");
+
+    confirmation_dialbox.classList.remove("active");
+
+    setTimeout(() => {
+        confirmation_title.innerText = "";
+        confirmation_confirm.innerText = "";
+        confirmation_decline.innerText = "";
+        confirmation_confirm.onclick = null;
+    }, 500);
 }
 
 function generate_enemies() {
@@ -234,7 +315,7 @@ function check_action_area(x, y) {
         x - 0.5 > player.position.x - player.stats.attack_area &&
         y - 0.5 > player.position.y - player.stats.attack_area
     ) {
-        if (enemy.position.x === x - 1.5 && enemy.position.y === y - 1.5 && enemy.alive) {
+        if (enemy.position.x === x - 1.5 && enemy.position.y === y - 1.5 && enemy.is_alive) {
             var attack_result = player.fight(enemy);
             if (!attack_result) {
                 alert("Attack blocked!");
@@ -251,7 +332,7 @@ function check_action_area(x, y) {
         x - 0.5 > player.position.x - player.stats.movement_area &&
         y - 0.5 > player.position.y - player.stats.movement_area
     ) {
-        if (!(enemy.position.x === x - 1.5 && enemy.position.y === y - 1.5 && enemy.alive)) {
+        if (!(enemy.position.x === x - 1.5 && enemy.position.y === y - 1.5 && enemy.is_alive)) {
             player.move_to(x - 1.5, y - 1.5);
         }
     }
@@ -328,7 +409,7 @@ function start_interval(time) {
         draw_background();
         update_tiles();
         update_enemies();
-        if (player.alive) {
+        if (player.is_alive) {
             update_player();
         }
         update_ui();
@@ -385,7 +466,7 @@ function update_player() {
 function update_enemies() {
     if (enemies.length !== 0) {
         for (var i = 0; i < enemies.length; i++) {
-            if (enemies[i].alive) {
+            if (enemies[i].is_alive) {
                 enemies[i].update();
             }
         }

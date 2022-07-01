@@ -37,8 +37,9 @@ class Player extends Entity {
         if (this.equipment[type] !== null) {
             this.unequip_item(this.equipment[type]);
         }
+        this.remove_item_from_inventory(item);
         this.equipment[type] = item;
-        this.update_stats(item, true);
+        this.update_stats(item.stats, true);
     }
     
     /**
@@ -51,9 +52,9 @@ class Player extends Entity {
         if (item === null) return;
         var type = ItemType.get_type(item.type);
         if (this.equipment[type] !== null) {
-            this.inventory.add_item_to_stack(this.equipment[type]);
+            this.add_item_to_inventory(this.equipment[type]);
             this.equipment[type] = null;
-            this.update_stats(item, false);
+            this.update_stats(item.stats, false);
         }
     }
 
@@ -63,14 +64,14 @@ class Player extends Entity {
      * @param {Item} item - The item to update the players stats from
      * @param {boolean} equipped - Whether the item is being equipped or not
      */
-    update_stats(item = null, equipped = null) {
-        if (item === null || equipped === null) return;
-        for (const stat in item.stats) {
+    update_stats(item_stats = null, equipped = null) {
+        if (item_stats === null || equipped === null) return;
+        for (const stat in item_stats) {
             if (Object.hasOwnProperty.call(this.stats, stat)) {
                 if (equipped) {
-                    this.stats[stat] += item.stats[stat];
+                    this.stats[stat] += item_stats[stat];
                 } else {
-                    this.stats[stat] -= item.stats[stat];
+                    this.stats[stat] -= item_stats[stat];
                 }
             }
         }
@@ -83,7 +84,7 @@ class Player extends Entity {
      */
     add_item_to_inventory(item = null) {
         if (item === null) return;
-        inventory.add_item_to_stack(item);
+        this.inventory.add_item_to_stack(item);
     }
 
     /**
@@ -93,6 +94,6 @@ class Player extends Entity {
      */
     remove_item_from_inventory(item = null) {
         if (item === null) return;
-        inventory.remove_item_from_stack(item);
+        this.inventory.remove_item_from_stack(item);
     }
 }

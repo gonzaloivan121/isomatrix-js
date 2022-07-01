@@ -29,6 +29,7 @@
 </head>
 
 <body>
+    <div id="toast"></div>
     <!-- START CONTENT -->
     <div class="content">
         <div class="pannel">
@@ -74,7 +75,7 @@
             <div class="container">
                 <div class="inventory-left">
                     <div class="selector">
-                        <div class="selector-title" id="selector-title">Weapon</div>
+                        <div class="selector-title" id="selector-title">Weapons</div>
                         <ul class="selector-list">
                             <li class="selector-item active" id="selector-weapon" data-id=""><img src="./assets/img/icons/weapon.png" width="32"></li>
                             <li class="selector-item" id="selector-shield" data-id=""><img src="./assets/img/icons/shield.png" width="32"></li>
@@ -92,7 +93,7 @@
                     </div>
                     <div class="inventory-grid-holder" id="inventory-grid-holder">
                         <div class="inventory-grid" data-type="weapon">
-                            <div class="inventory-item available">
+                            <div class="inventory-item available" data-item-id="1">
                                 <!--<div class="inventory-item-img" style="background-image: url(./assets/img/items/0.png)"></div>-->
                             </div>
                             <div class="inventory-item available"></div>
@@ -258,15 +259,30 @@
                     <button class="button box-shadow" onclick="toogle_inventory()" style="display: none;">Inventory</button>
                 </div>
                 <div class="footer-right">
-                    <button class="button box-shadow" onclick="toogle_inventory()">Drop</button>
-                    <button class="button box-shadow" onclick="toogle_inventory()">Equip</button>
+                    <button id="inventory-drop" class="button box-shadow" onclick="show_drop_confirmation()">Drop</button>
+                    <button id="inventory-equip" class="button box-shadow" onclick="equip_selected_item()">Equip</button>
                     <button class="button box-shadow" onclick="toogle_inventory()">Close</button>
                 </div>
             </div>
         </div>
         <!-- END INVENTORY -->
+        <!-- START CONFIRMATION DIALBOX -->
+        <div id="confirmation-dialbox" class="confirmation-dialbox box-shadow">
+            <div class="header">
+                <div class="confirmation-close" onclick="hide_confirmation_dialbox()">X</div>
+            </div>
+            <div class="container">
+                <div class="confirmation-title" id="confirmation-title"></div>
+            </div>
+            <div class="footer">
+                <button id="confirmation-confirm" class="button box-shadow" onclick="toogle_inventory()">Yes</button>
+                <button id="confirmation-decline" class="button box-shadow" onclick="hide_confirmation_dialbox()">No</button>
+            </div>
+        </div>
+        <!-- END CONFIRMATION DIALBOX -->
     </div>
     <!-- END CONTENT -->
+    <script src="./assets/js/toast.js"></script>
     <script src="./assets/js/game/vector.js"></script>
     <!-- START IMPORTING TILES -->
     <script src="./assets/js/game/tile.js"></script>

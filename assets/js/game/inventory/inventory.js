@@ -37,7 +37,7 @@ class Inventory {
      * If the Item's quantity is higher than 1, it reduces
      * the quantity of the Item. If not, it deletes the stack.
      * 
-     * @param {Item} item - The Item to be added to the Stack
+     * @param {Item} item - The Item to be removed from the Stack
      */
     remove_item_from_stack(item = null) {
         if (item === null) return;
