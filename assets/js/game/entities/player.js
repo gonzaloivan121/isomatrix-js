@@ -88,7 +88,7 @@ class Player extends Entity {
     }
 
     /**
-     * Removees an Item from the Player's Inventory
+     * Removes an Item from the Player's Inventory
      * 
      * @param {Item} item - The item to be removed from the Inventory
      */
