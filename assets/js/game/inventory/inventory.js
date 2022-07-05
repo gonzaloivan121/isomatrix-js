@@ -24,11 +24,13 @@ class Inventory {
                     // TODO: fix inventory aggregation when stack size exceed its maximum
                     if (item.can_stack && stack.quantity < item.max_stack_size) {
                         stack.increase_quantity();
+                        return { status: true, message: "The \"" + item.name + "\" has been added to the inventory" };
                     } else {
                         if (this.stacks.length < this.max_stacks) {
                             this.stacks.push(new Stack(item, 1));
+                            return { status: true, message: "The \"" + item.name + "\" has been added to the inventory" };
                         } else {
-                            return { status: false, message: "Inventory can't hold more than " + this.max_stacks + " items." };
+                            return { status: false, message: "Inventory can't hold more than " + this.max_stacks + " items" };
                         }
                     }
                 }
@@ -36,8 +38,9 @@ class Inventory {
         } else {
             if (this.stacks.length < this.max_stacks) {
                 this.stacks.push(new Stack(item, 1));
+                return { status: true, message: "The \"" + item.name + "\" has been added to the inventory" };
             } else {
-                return { status: false, message: "Inventory can't hold more than " + this.max_stacks + " items." };
+                return { status: false, message: "Inventory can't hold more than " + this.max_stacks + " items" };
             }
         }
     }
