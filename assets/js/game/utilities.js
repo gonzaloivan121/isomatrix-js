@@ -56,6 +56,7 @@ class Utilities {
      * 
      * @param {String} path - The path of the json to be loaded
      * @param {Function} callback - The function to be called once the JSON is loaded
+     * @param {Function} callback_error - The function to be called if the load fails
      */
     static load_json(path = null, callback, callback_error = () => {}) {
         if (path === null) return;
@@ -73,6 +74,27 @@ class Utilities {
             callback_error("Ha ocurrido un error.");
         }
         xobj.send(null);
+    }
+
+    /**
+     * Returns the environment that the game is running on
+     * 
+     * @returns {String} The game environment
+     */
+    static get_environment() {
+        if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+            return 'local';
+        }
+
+        if (window.location.hostname.includes("dev-")) {
+            return 'development';
+        }
+
+        if (window.location.hostname.includes("uat-")) {
+            return 'testing';
+        }
+
+        return 'production';
     }
 
     /**
