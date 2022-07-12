@@ -40,6 +40,7 @@ class Player extends Entity {
         this.remove_item_from_inventory(item);
         this.equipment[type] = item;
         this.update_stats(item.stats, true);
+        return { status: true, message: "The \"" + item.name + "\" has been equipped", item: item };
     }
     
     /**
@@ -55,7 +56,9 @@ class Player extends Entity {
             this.add_item_to_inventory(this.equipment[type]);
             this.equipment[type] = null;
             this.update_stats(item.stats, false);
+            return { status: true, message: "The \"" + item.name + "\" has been unequipped" };
         }
+        return { status: false, message: "There has been an error trying to unequip the \"" + item.name + "\"", item: item };
     }
 
     /**
@@ -66,6 +69,7 @@ class Player extends Entity {
      */
     update_stats(item_stats = null, equipped = null) {
         if (item_stats === null || equipped === null) return;
+        var result = { status: true };
         for (const stat in item_stats) {
             if (Object.hasOwnProperty.call(this.stats, stat)) {
                 if (equipped) {
@@ -73,8 +77,11 @@ class Player extends Entity {
                 } else {
                     this.stats[stat] -= item_stats[stat];
                 }
+            } else {
+                result.status = false;
             }
         }
+        return result;
     }
 
     /**
