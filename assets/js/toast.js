@@ -24,7 +24,7 @@ function createToast(message = null, type = 'info', duration = 3000) {
 
     const notif = document.createElement('div');
     const img = document.createElement('img');
-    img.src = "/assets/svg/toast/" + type + ".svg";
+    img.src = "./assets/svg/toast/" + type + ".svg";
     img.height = "20";
     img.style.paddingRight = "1em";
 
